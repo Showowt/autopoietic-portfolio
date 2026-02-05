@@ -11,8 +11,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 const CAL_LINK = "https://cal.com/machine-mind/machinemind-strategy-session";
 const INSTAGRAM = "https://www.instagram.com/machinemindconsulting/";
 
-// ⚠️ TODO: Replace with actual MachineMind WhatsApp Business number
-const WHATSAPP_NUMBER = "+573001234567"; // ← UPDATE THIS
+const WHATSAPP_NUMBER = "+19544451638";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=`;
 const EMAIL = "hello@machinemind.ai";
 
@@ -382,7 +381,7 @@ const SOFIA_KNOWLEDGE = {
 // ═══════════════════════════════════════════════════════════════════════════════
 // GLITCH TEXT COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════════
-function GlitchText({ text, duration = 2500, active = true }) {
+function GlitchText({ text, duration = 1800, active = true }) {
   const [display, setDisplay] = useState("");
   const [done, setDone] = useState(false);
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
@@ -672,7 +671,7 @@ function CinematicIntro({ onComplete, lang }) {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
   
-  // FAILSAFE: Force completion after 25 seconds no matter what
+  // FAILSAFE: Force completion after 18 seconds no matter what
   useEffect(() => {
     const failsafe = setTimeout(() => {
       if (!hasCompletedRef.current) {
@@ -680,28 +679,28 @@ function CinematicIntro({ onComplete, lang }) {
         hasCompletedRef.current = true;
         if (onCompleteRef.current) onCompleteRef.current();
       }
-    }, 25000);
+    }, 18000);
     return () => clearTimeout(failsafe);
   }, []);
   
-  // Stage timing:
-  // 0: Pulsing icon + rings (0-3s)
-  // 1: Glitch text "INITIALIZING SYSTEMS" (3-6s)
-  // 2: Loading bar + steps (6-11s)
-  // 3: Main headline typewriter (11-17s) - "THE INFRASTRUCTURE BEHIND"
-  // 4: Subheadline typewriter (17-23s) - "BUSINESSES THAT NEVER SLEEP"
-  // 5: Fade out (23-24s)
-  
+  // Stage timing (OPTIMIZED):
+  // 0: Pulsing icon + rings (0-2s)
+  // 1: Glitch text "INITIALIZING SYSTEMS" (2-4s)
+  // 2: Loading bar + steps (4-8s)
+  // 3: Main headline typewriter (8-12s) - "THE INFRASTRUCTURE BEHIND"
+  // 4: Subheadline typewriter (12-16s) - "BUSINESSES THAT NEVER SLEEP"
+  // 5: Fade out (16-18s)
+
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 3000),  // Start glitch text
-      setTimeout(() => setStage(2), 6000),  // Start loading bar
-      setTimeout(() => setStage(3), 11000), // Start main headline
+      setTimeout(() => setStage(1), 2000),  // Start glitch text
+      setTimeout(() => setStage(2), 4000),  // Start loading bar
+      setTimeout(() => setStage(3), 8000),  // Start main headline
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
   
-  // Loading bar progress
+  // Loading bar progress (matched to 4s stage duration)
   useEffect(() => {
     if (stage !== 2) return;
     const interval = setInterval(() => {
@@ -710,13 +709,13 @@ function CinematicIntro({ onComplete, lang }) {
           clearInterval(interval);
           return 100;
         }
-        return prev + 2;
+        return prev + 2.5;
       });
     }, 100);
     return () => clearInterval(interval);
   }, [stage]);
   
-  // Loading steps
+  // Loading steps (faster)
   useEffect(() => {
     if (stage !== 2) return;
     const steps = T.loadingSteps;
@@ -728,7 +727,7 @@ function CinematicIntro({ onComplete, lang }) {
       } else {
         clearInterval(interval);
       }
-    }, 1000);
+    }, 700);
     return () => clearInterval(interval);
   }, [stage, T.loadingSteps]);
   
@@ -904,9 +903,9 @@ function CinematicIntro({ onComplete, lang }) {
             marginBottom: "16px",
             color: COLORS.text
           }}>
-            <SlowTypewriter 
-              text={T.headline} 
-              speed={70} 
+            <SlowTypewriter
+              text={T.headline}
+              speed={55}
               delay={0}
               onComplete={handleHeadlineComplete}
             />
@@ -925,10 +924,10 @@ function CinematicIntro({ onComplete, lang }) {
               WebkitTextFillColor: "transparent",
               backgroundClip: "text"
             }}>
-              <SlowTypewriter 
-                text={T.subheadline} 
-                speed={80} 
-                delay={500}
+              <SlowTypewriter
+                text={T.subheadline}
+                speed={60}
+                delay={300}
                 onComplete={handleSubheadlineComplete}
               />
             </h2>
@@ -1032,12 +1031,12 @@ function CinematicCapabilityCard({ title, items = [], delay = 0, active, moduleN
     
     // Phase 1: Start scanning after delay
     const scanTimer = setTimeout(() => setPhase("scanning"), delay);
-    
-    // Phase 2: Building (scanning complete)
-    const buildTimer = setTimeout(() => setPhase("building"), delay + 1500);
-    
-    // Phase 3: Online
-    const onlineTimer = setTimeout(() => setPhase("online"), delay + 2500);
+
+    // Phase 2: Building (scanning complete) - faster
+    const buildTimer = setTimeout(() => setPhase("building"), delay + 1000);
+
+    // Phase 3: Online - faster
+    const onlineTimer = setTimeout(() => setPhase("online"), delay + 1800);
     
     return () => {
       clearTimeout(scanTimer);
@@ -1056,13 +1055,13 @@ function CinematicCapabilityCard({ title, items = [], delay = 0, active, moduleN
     }
   }, [phase]);
   
-  // Stagger items appearance after online
+  // Stagger items appearance after online (faster)
   useEffect(() => {
     if (phase === "online" && items && items.length > 0) {
       items.forEach((_, i) => {
         setTimeout(() => {
           setItemsVisible(prev => [...prev, i]);
-        }, i * 400 + 300);
+        }, i * 280 + 200);
       });
     }
   }, [phase, items]);
@@ -1209,33 +1208,33 @@ function CaseStudy({ data, lang }) {
       borderRadius: "16px",
       border: `1px solid ${COLORS.border}`,
       opacity: 0,
-      animation: "fadeSlideIn 0.8s 9s forwards"
+      animation: "fadeSlideIn 0.8s 0.5s forwards"
     }}>
-      <div style={{ 
-        fontSize: "11px", 
-        color: COLORS.gold, 
+      <div style={{
+        fontSize: "11px",
+        color: COLORS.gold,
         marginBottom: "8px",
         fontFamily: "'JetBrains Mono', monospace",
         letterSpacing: "2px"
       }}>
         {T?.caseStudy || "CASE STUDY"}
       </div>
-      <div style={{ 
-        fontFamily: "'Space Grotesk', sans-serif", 
-        fontSize: "20px", 
-        fontWeight: 600, 
-        marginBottom: "12px" 
+      <div style={{
+        fontFamily: "'Space Grotesk', sans-serif",
+        fontSize: "20px",
+        fontWeight: 600,
+        marginBottom: "12px"
       }}>
         {data.title}
       </div>
-      <div style={{ 
-        fontSize: "42px", 
-        fontWeight: 700, 
-        color: COLORS.cyan, 
+      <div style={{
+        fontSize: "42px",
+        fontWeight: 700,
+        color: COLORS.cyan,
         marginBottom: "4px",
         fontFamily: "'Space Grotesk', sans-serif"
       }}>
-        <CountUp end={data.metric} prefix={hasDollar ? "$" : ""} delay={9500} />
+        <CountUp end={data.metric} prefix={hasDollar ? "$" : ""} delay={1000} />
         <span style={{ fontSize: "20px", color: COLORS.textMuted }}>{data.metricSuffix}</span>
       </div>
       <p style={{ 
@@ -1368,13 +1367,13 @@ function BlueprintReveal({ selected, T, lang, calLink }) {
     }
   };
   
-  // System initialization - slower, more dramatic
+  // System initialization - tighter pacing
   const systems = [
-    { id: "core", en: "CORE AI ENGINE", es: "MOTOR DE IA PRINCIPAL", delay: 14000 },
-    { id: "whatsapp", en: "WHATSAPP INTEGRATION", es: "INTEGRACIÓN WHATSAPP", delay: 16000 },
-    { id: "nlp", en: "NATURAL LANGUAGE PROCESSOR", es: "PROCESADOR DE LENGUAJE", delay: 18000 },
-    { id: "crm", en: "CLIENT MEMORY SYSTEM", es: "SISTEMA DE MEMORIA", delay: 20000 },
-    { id: "analytics", en: "REVENUE ANALYTICS", es: "ANALÍTICAS DE INGRESOS", delay: 22000 }
+    { id: "core", en: "CORE AI ENGINE", es: "MOTOR DE IA PRINCIPAL", delay: 10000 },
+    { id: "whatsapp", en: "WHATSAPP INTEGRATION", es: "INTEGRACIÓN WHATSAPP", delay: 11500 },
+    { id: "nlp", en: "NATURAL LANGUAGE PROCESSOR", es: "PROCESADOR DE LENGUAJE", delay: 13000 },
+    { id: "crm", en: "CLIENT MEMORY SYSTEM", es: "SISTEMA DE MEMORIA", delay: 14500 },
+    { id: "analytics", en: "REVENUE ANALYTICS", es: "ANALÍTICAS DE INGRESOS", delay: 16000 }
   ];
   
   const problems = industryProblems[selected?.id] || industryProblems.hospitality;
@@ -1391,50 +1390,50 @@ function BlueprintReveal({ selected, T, lang, calLink }) {
       setElapsedTime(prev => prev + 1);
     }, 1000);
     
-    // Show floating CTA after 30 seconds
-    const floatingCTATimer = setTimeout(() => setShowFloatingCTA(true), 30000);
+    // Show floating CTA after 20 seconds (earlier escape hatch)
+    const floatingCTATimer = setTimeout(() => setShowFloatingCTA(true), 20000);
+
+    // PHASE 1: VISION (0-3s) - Hook them with "Imagine..."
+    const visionTimer = setTimeout(() => setSubPhase("problem"), 3000);
     
-    // PHASE 1: VISION (0-4s) - Hook them with "Imagine..."
-    const visionTimer = setTimeout(() => setSubPhase("problem"), 4000);
-    
-    // PHASE 2: PROBLEM (4-12s) - Show their pain points one by one
+    // PHASE 2: PROBLEM (3-8s) - Show their pain points one by one (faster reveals)
     problemList.forEach((_, i) => {
-      setTimeout(() => setProblemIndex(i), 4500 + i * 1800);
+      setTimeout(() => setProblemIndex(i), 3500 + i * 1200);
     });
-    const problemPhaseEnd = setTimeout(() => setSubPhase("transformation"), 12000);
-    
-    // PHASE 3: TRANSFORMATION (12-14s) - The shift moment
-    const transformTimer = setTimeout(() => setSubPhase("systems"), 14000);
-    
-    // PHASE 4: SYSTEMS (14-25s) - Systems come online
+    const problemPhaseEnd = setTimeout(() => setSubPhase("transformation"), 8000);
+
+    // PHASE 3: TRANSFORMATION (8-10s) - The shift moment
+    const transformTimer = setTimeout(() => setSubPhase("systems"), 10000);
+
+    // PHASE 4: SYSTEMS (10-17s) - Systems come online
     systems.forEach(sys => {
       setTimeout(() => setSystemsOnline(prev => [...prev, sys.id]), sys.delay);
     });
-    const systemsEnd = setTimeout(() => setSubPhase("capabilities"), 25000);
-    
-    // PHASE 5: CAPABILITIES (25-55s) - Reveal one capability at a time
+    const systemsEnd = setTimeout(() => setSubPhase("capabilities"), 17000);
+
+    // PHASE 5: CAPABILITIES (17-32s) - Reveal one capability at a time (faster)
     const caps = T.capabilities?.[selected?.id] || [];
     caps.forEach((_, i) => {
-      setTimeout(() => setVisibleCapIndex(i), 26000 + i * 8000);
+      setTimeout(() => setVisibleCapIndex(i), 18000 + i * 5000);
     });
-    
-    // PHASE 6: PROOF (55-65s) - Real results
+
+    // PHASE 6: PROOF (32-40s) - Real results
     const proofTimer = setTimeout(() => {
       setSubPhase("proof");
       setShowProof(true);
-    }, 55000);
-    
-    // PHASE 7: MOMENT (65-72s) - The powerful pause
+    }, 33000);
+
+    // PHASE 7: MOMENT (40-45s) - The powerful pause
     const momentTimer = setTimeout(() => {
       setSubPhase("moment");
       setShowMoment(true);
-    }, 65000);
-    
-    // PHASE 8: INVITATION (72s+) - Soft CTA
+    }, 40000);
+
+    // PHASE 8: INVITATION (45s+) - Soft CTA
     const ctaTimer = setTimeout(() => {
       setSubPhase("invitation");
       setShowCTA(true);
-    }, 72000);
+    }, 45000);
     
     return () => {
       clearInterval(timeTracker);
@@ -3144,13 +3143,13 @@ export default function Home() {
     setParticleIntensity(3);
     setLockingStage(1);
     
-    // Stage progression
+    // Stage progression (tightened)
     const stages = [
-      { delay: 800, stage: 2 },   // SCANNING
-      { delay: 2000, stage: 3 },  // ANALYZING  
-      { delay: 3200, stage: 4 },  // LOCKED
+      { delay: 600, stage: 2 },   // SCANNING
+      { delay: 1500, stage: 3 },  // ANALYZING
+      { delay: 2400, stage: 4 },  // LOCKED
     ];
-    
+
     stages.forEach(({ delay, stage }) => {
       setTimeout(() => {
         setLockingStage(stage);
@@ -3161,20 +3160,20 @@ export default function Home() {
         }
       }, delay);
     });
-    
+
     // Scanning animation
     const scanInterval = setInterval(() => {
       setScanLine(prev => (prev + 3) % 100);
     }, 30);
-    
-    // Transition to generate
+
+    // Transition to generate (faster)
     const timer = setTimeout(() => {
       clearInterval(scanInterval);
       setScanLine(0);
       setScreenGlow(null);
       setLockingStage(0);
       setPhase("generate");
-    }, 4500);
+    }, 3500);
     
     return () => {
       clearInterval(scanInterval);
@@ -3182,10 +3181,10 @@ export default function Home() {
     };
   }, [phase]);
   
-  // Handle generation phase
+  // Handle generation phase - Psychologically optimized timing
   useEffect(() => {
     if (phase !== "generate") return;
-    
+
     // Initial flash entering generation
     setScreenFlash(true);
     setScreenGlow('cyan');
@@ -3193,23 +3192,32 @@ export default function Home() {
       setScreenFlash(false);
       setScreenGlow(null);
     }, 100);
-    
+
     setParticleIntensity(2);
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < T.generation.logs.length) {
-        setLogs(prev => [...prev, T.generation.logs[i]]);
-        setProgress((i + 1) / T.generation.logs.length * 100);
-        
-        // Flash on final log
-        if (i === T.generation.logs.length - 1) {
-          setScreenGlow('gold');
-          setTimeout(() => setScreenGlow(null), 500);
-        }
-        i++;
-      } else {
-        clearInterval(interval);
-        // Dramatic pause then transition
+    const totalLogs = T.generation.logs.length;
+    let logIndex = 0;
+
+    // Smooth progress bar - accelerates toward end (easeInQuad curve)
+    const progressDuration = 20000; // 20 seconds for full progress
+    const progressStart = Date.now();
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - progressStart;
+      const linearProgress = Math.min(elapsed / progressDuration, 1);
+      // Ease-in-out curve: slow start, fast middle, smooth end
+      const easedProgress = linearProgress < 0.5
+        ? 2 * linearProgress * linearProgress
+        : 1 - Math.pow(-2 * linearProgress + 2, 2) / 2;
+      setProgress(easedProgress * 100);
+
+      if (linearProgress >= 1) {
+        clearInterval(progressInterval);
+      }
+    }, 50);
+
+    // Accelerating log reveals - starts slow, speeds up (builds momentum)
+    const scheduleLog = (index) => {
+      if (index >= totalLogs) {
+        // All logs done - transition after short pause
         setTimeout(() => {
           setScreenFlash(true);
           setScreenGlow('gold');
@@ -3219,17 +3227,40 @@ export default function Home() {
             setParticleIntensity(1.2);
             setTimeout(() => setScreenGlow(null), 300);
           }, 200);
-        }, 4000);
+        }, 1800);
+        return;
       }
-    }, 2800);
-    
-    return () => clearInterval(interval);
+
+      // Accelerating intervals: 2200ms -> 1200ms (builds momentum)
+      const progressRatio = index / totalLogs;
+      const interval = 2200 - (progressRatio * 1000); // 2200ms to 1200ms
+
+      setTimeout(() => {
+        setLogs(prev => [...prev, T.generation.logs[index]]);
+
+        // Flash on final log
+        if (index === totalLogs - 1) {
+          setScreenGlow('gold');
+          setTimeout(() => setScreenGlow(null), 500);
+        }
+
+        scheduleLog(index + 1);
+      }, interval);
+    };
+
+    // Start first log immediately
+    setLogs([T.generation.logs[0]]);
+    scheduleLog(1);
+
+    return () => {
+      clearInterval(progressInterval);
+    };
   }, [phase, T.generation.logs]);
   
-  // Transition to final after blueprint
+  // Transition to final after blueprint (adjusted for faster pacing)
   useEffect(() => {
     if (phase !== "blueprint") return;
-    const timer = setTimeout(() => setPhase("final"), 50000);
+    const timer = setTimeout(() => setPhase("final"), 55000);
     return () => clearTimeout(timer);
   }, [phase]);
   
@@ -3441,7 +3472,7 @@ export default function Home() {
                 opacity: 0,
                 animation: "fadeSlideIn 0.6s 0.4s forwards"
               }}>
-                <Typewriter text={T.select.title} speed={35} delay={600} />
+                <Typewriter text={T.select.title} speed={30} delay={400} />
               </h1>
               
               <p style={{
@@ -3451,7 +3482,7 @@ export default function Home() {
                 opacity: 0,
                 animation: "fadeSlideIn 0.6s 0.8s forwards"
               }}>
-                <Typewriter text={T.select.description} speed={25} delay={1200} />
+                <Typewriter text={T.select.description} speed={22} delay={800} />
               </p>
               
               {/* Vertical Cards */}
@@ -3556,7 +3587,7 @@ export default function Home() {
                 gap: "40px",
                 marginTop: "60px",
                 opacity: 0,
-                animation: "fadeSlideIn 0.6s 2.5s forwards"
+                animation: "fadeSlideIn 0.6s 1.5s forwards"
               }}>
                 {Object.values(T.select.stats).map((stat, i) => (
                   <div key={i} style={{ textAlign: "center" }}>
@@ -4006,7 +4037,7 @@ export default function Home() {
                 fontWeight: 700,
                 marginBottom: "20px"
               }}>
-                <Typewriter text={T.final.title} speed={45} delay={500} />
+                <Typewriter text={T.final.title} speed={35} delay={300} />
               </h2>
               
               <p style={{
@@ -4016,7 +4047,7 @@ export default function Home() {
                 marginBottom: "48px",
                 lineHeight: 1.7,
                 opacity: 0,
-                animation: "fadeSlideIn 0.6s 2s forwards"
+                animation: "fadeSlideIn 0.6s 1s forwards"
               }}>
                 {T.final.subtitle}
               </p>
@@ -4041,7 +4072,7 @@ export default function Home() {
                     cursor: "pointer",
                     fontFamily: "'Space Grotesk', sans-serif",
                     opacity: 0,
-                    animation: "fadeSlideIn 0.6s 2.5s forwards",
+                    animation: "fadeSlideIn 0.6s 1.4s forwards",
                     transition: "transform 0.3s, box-shadow 0.3s"
                   }}
                   onMouseOver={(e) => {
@@ -4071,7 +4102,7 @@ export default function Home() {
                     cursor: "pointer",
                     fontFamily: "'Space Grotesk', sans-serif",
                     opacity: 0,
-                    animation: "fadeSlideIn 0.6s 2.7s forwards",
+                    animation: "fadeSlideIn 0.6s 1.6s forwards",
                     transition: "all 0.3s"
                   }}
                   onMouseOver={(e) => e.target.style.borderColor = COLORS.cyan}
@@ -4086,7 +4117,7 @@ export default function Home() {
                 fontSize: "13px",
                 color: COLORS.textMuted,
                 opacity: 0,
-                animation: "fadeSlideIn 0.5s 3s forwards"
+                animation: "fadeSlideIn 0.5s 1.8s forwards"
               }}>
                 {T.final.footer}
               </p>
@@ -4101,7 +4132,7 @@ export default function Home() {
                   fontSize: "14px",
                   textDecoration: "none",
                   opacity: 0,
-                  animation: "fadeSlideIn 0.5s 3.5s forwards",
+                  animation: "fadeSlideIn 0.5s 2.2s forwards",
                   transition: "color 0.3s"
                 }}
                 onMouseOver={(e) => e.target.style.color = COLORS.cyan}
