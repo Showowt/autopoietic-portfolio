@@ -884,6 +884,200 @@ function LiveStats() {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// PREMIUM COMPONENTS - ONE OF A KIND
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimatedCounter(props) {
+  var end = props.end || 0;
+  var prefix = props.prefix || "";
+  var suffix = props.suffix || "";
+  var duration = props.duration || 2000;
+  var [count, setCount] = useState(0);
+  var [started, setStarted] = useState(false);
+
+  useEffect(function() {
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !started) {
+        setStarted(true);
+      }
+    }, { threshold: 0.3 });
+    var el = document.getElementById("counter-" + end);
+    if (el) observer.observe(el);
+    return function() { if (el) observer.unobserve(el); };
+  }, [end, started]);
+
+  useEffect(function() {
+    if (!started) return;
+    var startTime = Date.now();
+    var animate = function() {
+      var elapsed = Date.now() - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(end * eased));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    animate();
+  }, [started, end, duration]);
+
+  return React.createElement("span", { id: "counter-" + end }, prefix + count.toLocaleString() + suffix);
+}
+
+function ResultsDashboard() {
+  var metrics = [
+    { value: 4200, prefix: "$", suffix: "+", label: "Monthly Revenue Recovered", subtext: "Average per client" },
+    { value: 30, prefix: "<", suffix: "s", label: "Response Time", subtext: "vs 4+ hours industry avg" },
+    { value: 85, prefix: "", suffix: "%", label: "Conversion Rate", subtext: "Inquiry to booking" },
+    { value: 24, prefix: "", suffix: "/7", label: "Always Online", subtext: "Never miss a lead" }
+  ];
+
+  return React.createElement("div", { style: { marginTop: "60px", marginBottom: "60px" } },
+    React.createElement("div", { style: { textAlign: "center", marginBottom: "40px" } },
+      React.createElement("div", { style: { fontSize: "11px", letterSpacing: "0.2em", color: COLORS.gold, marginBottom: "12px" } }, "LIVE PERFORMANCE METRICS"),
+      React.createElement("h3", { style: { fontFamily: "system-ui", fontSize: "28px", fontWeight: 700, color: COLORS.text } }, "Results That Speak For Themselves")
+    ),
+    React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px" } },
+      metrics.map(function(m, i) {
+        return React.createElement("div", {
+          key: m.label,
+          style: {
+            background: "linear-gradient(135deg, " + COLORS.bgCard + ", rgba(0,212,255,0.05))",
+            border: "1px solid " + COLORS.border,
+            borderRadius: "16px",
+            padding: "28px",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden",
+            opacity: 0,
+            animation: "fadeIn 0.6s " + (i * 150) + "ms forwards"
+          }
+        },
+          React.createElement("div", { style: { position: "absolute", top: 0, left: 0, right: 0, height: "3px", background: "linear-gradient(90deg, " + COLORS.cyan + ", " + COLORS.gold + ")" } }),
+          React.createElement("div", { style: { fontSize: "42px", fontWeight: 700, color: COLORS.cyan, marginBottom: "8px", textShadow: "0 0 30px " + COLORS.cyanGlow } },
+            React.createElement(AnimatedCounter, { end: m.value, prefix: m.prefix, suffix: m.suffix, duration: 2000 + i * 200 })
+          ),
+          React.createElement("div", { style: { fontSize: "14px", fontWeight: 600, color: COLORS.text, marginBottom: "4px" } }, m.label),
+          React.createElement("div", { style: { fontSize: "11px", color: COLORS.textMuted } }, m.subtext)
+        );
+      })
+    )
+  );
+}
+
+function BeforeAfterComparison() {
+  var comparisons = [
+    { before: "4+ hours response time", after: "<30 seconds response", icon: "⚡" },
+    { before: "60% inquiries missed after-hours", after: "0% missed - 24/7 coverage", icon: "🌙" },
+    { before: "Manual booking management", after: "Automated AI handling", icon: "🤖" },
+    { before: "Lost revenue to competitors", after: "$2K-$8K+ monthly recovered", icon: "💰" },
+    { before: "Language barriers", after: "5+ languages fluently", icon: "🌍" },
+    { before: "Inconsistent follow-up", after: "100% follow-up rate", icon: "✓" }
+  ];
+
+  return React.createElement("div", { style: { marginTop: "60px", marginBottom: "60px" } },
+    React.createElement("div", { style: { textAlign: "center", marginBottom: "40px" } },
+      React.createElement("div", { style: { fontSize: "11px", letterSpacing: "0.2em", color: COLORS.gold, marginBottom: "12px" } }, "THE TRANSFORMATION"),
+      React.createElement("h3", { style: { fontFamily: "system-ui", fontSize: "28px", fontWeight: 700, color: COLORS.text } }, "Before & After MachineMind")
+    ),
+    React.createElement("div", { style: { display: "grid", gap: "16px", maxWidth: "800px", margin: "0 auto" } },
+      comparisons.map(function(c, i) {
+        return React.createElement("div", {
+          key: i,
+          style: {
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
+            gap: "20px",
+            alignItems: "center",
+            padding: "20px",
+            background: COLORS.bgCard,
+            borderRadius: "12px",
+            border: "1px solid " + COLORS.border,
+            opacity: 0,
+            animation: "fadeIn 0.5s " + (i * 100) + "ms forwards"
+          }
+        },
+          React.createElement("div", { style: { textAlign: "right", color: "rgba(255,100,100,0.8)", fontSize: "14px", textDecoration: "line-through", opacity: 0.7 } }, c.before),
+          React.createElement("div", { style: { width: "50px", height: "50px", borderRadius: "50%", background: "linear-gradient(135deg, " + COLORS.cyan + ", " + COLORS.gold + ")", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", boxShadow: "0 0 20px " + COLORS.cyanGlow } }, c.icon),
+          React.createElement("div", { style: { textAlign: "left", color: COLORS.cyan, fontSize: "14px", fontWeight: 600 } }, c.after)
+        );
+      })
+    )
+  );
+}
+
+function TrustBadges() {
+  var badges = [
+    { icon: "🔒", label: "Enterprise Security", desc: "Bank-level encryption" },
+    { icon: "⚡", label: "99.9% Uptime", desc: "Always available" },
+    { icon: "✅", label: "WhatsApp Certified", desc: "Official API partner" },
+    { icon: "🛡️", label: "GDPR Compliant", desc: "Data protection" },
+    { icon: "🏆", label: "94+ NPS Score", desc: "Client satisfaction" },
+    { icon: "💳", label: "ROI Guaranteed", desc: "Or we work free" }
+  ];
+
+  return React.createElement("div", { style: { marginTop: "40px", padding: "32px", background: "rgba(0,0,0,0.3)", borderRadius: "16px", border: "1px solid " + COLORS.border } },
+    React.createElement("div", { style: { textAlign: "center", marginBottom: "24px" } },
+      React.createElement("div", { style: { fontSize: "11px", letterSpacing: "0.15em", color: COLORS.gold } }, "TRUSTED & CERTIFIED")
+    ),
+    React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "16px" } },
+      badges.map(function(b, i) {
+        return React.createElement("div", {
+          key: b.label,
+          style: {
+            textAlign: "center",
+            padding: "16px",
+            borderRadius: "8px",
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.05)",
+            opacity: 0,
+            animation: "fadeIn 0.4s " + (i * 80) + "ms forwards"
+          }
+        },
+          React.createElement("div", { style: { fontSize: "28px", marginBottom: "8px" } }, b.icon),
+          React.createElement("div", { style: { fontSize: "12px", fontWeight: 600, color: COLORS.text, marginBottom: "2px" } }, b.label),
+          React.createElement("div", { style: { fontSize: "10px", color: COLORS.textMuted } }, b.desc)
+        );
+      })
+    )
+  );
+}
+
+function PremiumHeroGlow() {
+  return React.createElement("div", { style: { position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0 } },
+    React.createElement("div", { style: {
+      position: "absolute",
+      top: "20%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: "800px",
+      height: "800px",
+      background: "radial-gradient(circle, " + COLORS.cyanGlow + " 0%, transparent 70%)",
+      opacity: 0.15,
+      animation: "pulse 4s ease-in-out infinite"
+    } }),
+    React.createElement("div", { style: {
+      position: "absolute",
+      bottom: "10%",
+      left: "20%",
+      width: "600px",
+      height: "600px",
+      background: "radial-gradient(circle, " + COLORS.goldDim + " 0%, transparent 70%)",
+      opacity: 0.2,
+      animation: "pulse 5s ease-in-out infinite 1s"
+    } }),
+    React.createElement("div", { style: {
+      position: "absolute",
+      top: "60%",
+      right: "10%",
+      width: "400px",
+      height: "400px",
+      background: "radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%)",
+      opacity: 0.3,
+      animation: "pulse 6s ease-in-out infinite 2s"
+    } })
+  );
+}
+
 function InstagramIcon() {
   return React.createElement("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2" },
     React.createElement("rect", { x: "2", y: "2", width: "20", height: "20", rx: "5" }),
@@ -906,7 +1100,7 @@ export default function Home() {
 
   useEffect(function() { var timer = setTimeout(function() { setPhase(1); }, 4000); return function() { clearTimeout(timer); }; }, []);
   useEffect(function() { if (phase !== 2) return; var i = 0; var interval = setInterval(function() { if (i < logMessages.length) { setLogs(function(prev) { return prev.concat([logMessages[i]]); }); setProgress((i + 1) / logMessages.length * 100); i++; } else { clearInterval(interval); setTimeout(function() { setPhase(3); }, 1000); } }, 800); return function() { clearInterval(interval); }; }, [phase]);
-  useEffect(function() { if (phase === 3 && selected) { setCaps(capData[selected.id] || []); var timer = setTimeout(function() { setPhase(4); }, 6000); return function() { clearTimeout(timer); }; } }, [phase, selected]);
+  useEffect(function() { if (phase === 3 && selected) { setCaps(capData[selected.id] || []); var timer = setTimeout(function() { setPhase(4); }, 12000); return function() { clearTimeout(timer); }; } }, [phase, selected]);
 
   function handleSelect(interest) { setSelected(interest); setPhase(2); setLogs([]); setProgress(0); }
   function handleBack() { if (phase > 1 && phase < 4) { setPhase(1); setSelected(null); setLogs([]); setProgress(0); setCaps([]); } }
@@ -914,6 +1108,7 @@ export default function Home() {
 
   return (
     React.createElement("div", { style: { minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "ui-monospace, monospace" } },
+      React.createElement(PremiumHeroGlow),
       React.createElement(ParticleField, { intensity: phase >= 2 ? 1.5 : 0.8 }),
       phase > 1 && phase < 4 && React.createElement("button", { onClick: handleBack, style: { position: "fixed", top: "24px", left: "24px", padding: "12px 20px", borderRadius: "8px", border: "1px solid " + COLORS.border, background: COLORS.bgCard, color: COLORS.text, cursor: "pointer", zIndex: 100, fontFamily: "system-ui", fontSize: "14px" } }, "← Back"),
       React.createElement("div", { style: { position: "relative", zIndex: 1, maxWidth: "1100px", margin: "0 auto", padding: "40px 24px", minHeight: "100vh", display: "flex", flexDirection: "column" } },
@@ -985,7 +1180,7 @@ export default function Home() {
             )
           )
         ),
-        phase === 3 && React.createElement("div", { style: { flex: 1 } },
+        phase === 3 && React.createElement("div", { style: { flex: 1, overflow: "auto", paddingBottom: "60px" } },
           React.createElement("div", { style: { textAlign: "center", marginBottom: "40px" } },
             React.createElement("div", { style: { fontSize: "12px", color: COLORS.gold, marginBottom: "8px" } }, "✦ BLUEPRINT GENERATED ✦"),
             React.createElement("h2", { style: { fontFamily: "system-ui", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 700 } },
@@ -995,7 +1190,10 @@ export default function Home() {
           React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" } },
             caps.map(function(c, i) { return React.createElement(CapabilityCard, { key: c.title, title: c.title, items: c.items, delay: i * 700, active: true }); })
           ),
-          selected && React.createElement(CaseStudy, { vertical: selected.id })
+          selected && React.createElement(CaseStudy, { vertical: selected.id }),
+          React.createElement(ResultsDashboard),
+          React.createElement(BeforeAfterComparison),
+          React.createElement(TrustBadges)
         ),
         phase === 4 && React.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" } },
           React.createElement("div", { style: { width: "90px", height: "90px", borderRadius: "50%", background: "linear-gradient(135deg, " + COLORS.cyan + ", " + COLORS.gold + ")", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "32px", boxShadow: "0 0 60px " + COLORS.cyanGlow } },
@@ -1012,7 +1210,10 @@ export default function Home() {
             React.createElement("button", { onClick: function() { setPhase(1); setSelected(null); setCaps([]); }, style: { background: "transparent", border: "1px solid " + COLORS.border, borderRadius: "8px", padding: "18px 32px", fontSize: "14px", color: COLORS.text, cursor: "pointer", fontFamily: "system-ui", opacity: 0, animation: "fadeIn 0.6s 3.2s forwards" } }, "← Explore Another")
           ),
           React.createElement("p", { style: { marginTop: "20px", fontSize: "12px", color: COLORS.textMuted, opacity: 0, animation: "fadeIn 0.5s 4s forwards" } }, "15-min call • No commitment • See what we'll build"),
-          React.createElement("a", { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer", style: { marginTop: "32px", color: COLORS.textMuted, fontSize: "14px", textDecoration: "none", opacity: 0, animation: "fadeIn 0.5s 4.5s forwards" } }, "@machinemindconsulting")
+          React.createElement("div", { style: { marginTop: "50px", width: "100%", maxWidth: "800px", opacity: 0, animation: "fadeIn 0.6s 4.5s forwards" } },
+            React.createElement(TrustBadges)
+          ),
+          React.createElement("a", { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer", style: { marginTop: "32px", color: COLORS.textMuted, fontSize: "14px", textDecoration: "none", opacity: 0, animation: "fadeIn 0.5s 5.5s forwards" } }, "@machinemindconsulting")
         )
       ),
       React.createElement(SofiaChat, { isOpen: chatOpen, onClose: function() { setChatOpen(false); } }),
