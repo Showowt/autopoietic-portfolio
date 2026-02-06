@@ -1,23 +1,160 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MACHINEMIND v5.1 | UNIFIED EDITION
+// Standard Flow + ANIMA Experience
+// ═══════════════════════════════════════════════════════════════════════════════
 
 const COLORS = {
   bg: "#0d1117",
+  void: "#030508",
   bgCard: "#161b22",
+  bgElevated: "#141920",
   cyan: "#00d4ff",
   cyanDim: "rgba(0, 212, 255, 0.1)",
   cyanGlow: "rgba(0, 212, 255, 0.3)",
+  cyanBright: "#00ffff",
   gold: "#C9A12B",
   goldDim: "rgba(201, 161, 43, 0.15)",
+  goldGlow: "rgba(212, 164, 32, 0.3)",
+  neural: "#6366f1",
+  neuralDim: "rgba(99, 102, 241, 0.1)",
+  pulse: "#10b981",
+  pulseDim: "rgba(16, 185, 129, 0.15)",
+  danger: "#ef4444",
   text: "#e6edf3",
   textMuted: "#7d8590",
+  textDim: "#4b5563",
   border: "rgba(0, 212, 255, 0.2)",
+  borderGold: "rgba(212, 164, 32, 0.2)",
   green: "#10b981",
+  gradient: "linear-gradient(135deg, #00d4ff 0%, #6366f1 50%, #d4a420 100%)"
 };
 
 var CAL_LINK = "https://cal.com/machine-mind/machinemind-strategy-session";
 var INSTAGRAM = "https://www.instagram.com/machinemindconsulting";
 var WHATSAPP = "https://wa.me/19544451638";
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA KNOWLEDGE BASE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const ANIMA_KNOWLEDGE = {
+  core: {
+    tagline: "We don't install chatbots. We install nervous systems.",
+    mission: "ANIMA is the intelligent nervous system that transforms your hospitality business into a 24/7 revenue-capturing, customer-learning, competitor-outsmarting operation.",
+    differentiator: "Every deployment makes every other deployment smarter. Your competition is installing chatbots. You're installing an intelligence network."
+  },
+
+  tiers: {
+    nerve: {
+      name: "THE NERVE",
+      tagline: "Instant Response Infrastructure",
+      description: "The foundation — an AI responder that handles inquiries 24/7 with your business's voice and knowledge.",
+      price: "$490",
+      priceType: "one-time",
+      features: [
+        "24/7 WhatsApp AI responder",
+        "Trained on your menu, services, policies",
+        "Multi-language support (ES/EN/PT)",
+        "Basic booking assistance",
+        "Smart escalation to humans"
+      ],
+      ideal: "Perfect for businesses just starting to automate",
+      limitation: "No intelligence layer, no weekly reports, no network learning"
+    },
+    brain: {
+      name: "THE BRAIN",
+      tagline: "Intelligence-Driven Operations",
+      description: "ANIMA's full power — not just response, but intelligence. Your business learns from every interaction and you see what you've been missing.",
+      setup: "$750",
+      monthly: "$1,500",
+      features: [
+        "Everything in The Nerve, plus:",
+        "Weekly Intelligence Reports",
+        "Customer Lifecycle Management",
+        "No-Show Annihilation System",
+        "Revenue Leak Detection",
+        "Competitor Mention Tracking",
+        "Network Learning (gets smarter from all deployments)",
+        "Monthly Strategy Calls",
+        "Dedicated onboarding diagnostic"
+      ],
+      ideal: "The sweet spot — maximum value for serious hospitality businesses",
+      roi: "Average client sees 3x ROI within 60 days"
+    },
+    soul: {
+      name: "THE SOUL",
+      tagline: "Autonomous Business Operations",
+      description: "Your business runs itself while you sleep. Full integration, daily optimization, predictive intelligence.",
+      setup: "$3,500",
+      monthly: "$2,500",
+      features: [
+        "Everything in The Brain, plus:",
+        "Daily Pulse Reports",
+        "Predictive Demand Forecasting",
+        "Automated Menu Optimization Suggestions",
+        "VIP Customer Priority Routing",
+        "Multi-Location Support",
+        "API Access for Custom Integrations",
+        "Quarterly Business Reviews",
+        "Priority Support (2-hour response)"
+      ],
+      ideal: "For established businesses ready to operate autonomously",
+      status: "Available Q2 2026"
+    }
+  },
+
+  moat: {
+    diagnostic: {
+      title: "The Onboarding Diagnostic",
+      subtitle: "Consulting-grade intelligence extraction",
+      description: "Competitors ask 'what do you want the bot to say?' We run a 7-phase business diagnostic that delivers insights worth more than the setup fee — before the system even exists.",
+      value: "Owners discover blind spots in their business they never knew existed. The diagnostic alone pays for itself."
+    },
+    intelligence: {
+      title: "Weekly Intelligence Reports",
+      subtitle: "See what you've been missing",
+      description: "Every Monday: what your customers actually want, how much money you left on the table, who your competitors are losing to you (and who you're losing to them), and exactly what to do about it.",
+      value: "Once an owner sees their business through ANIMA's eyes, going back to guessing is unacceptable."
+    },
+    network: {
+      title: "Network Learning",
+      subtitle: "Every deployment makes all deployments smarter",
+      description: "ANIMA deployment #50 knows things about optimal confirmation timing, upsell language, and no-show patterns that no single-restaurant system could ever discover. This is the data moat.",
+      value: "No competitor starting from scratch can compete with accumulated intelligence from the entire network."
+    }
+  },
+
+  stats: {
+    responseTime: "< 3 seconds",
+    conversion: "85-95%",
+    noShowReduction: "40-60%",
+    afterHours: "60%",
+    roi: "3x in 60 days",
+    revenueRecovered: "$2,000-$8,000+/mo"
+  },
+
+  weeklyReport: {
+    headline: "23 personas preguntaron por brunch este fin de semana. No ofreces brunch. A un ticket promedio de $85K, eso son $1.9M que no capturaste.",
+    metrics: {
+      conversations: 147,
+      bookings: 89,
+      conversion: "61%",
+      revenue: "$12,400,000 COP",
+      afterHours: 62,
+      noShows: 3
+    },
+    insights: [
+      "Tu plato más pedido esta semana: Bandeja Paisa (34 veces)",
+      "El 34% de consultas llegan entre 10-11pm. Antes no respondías ninguna.",
+      "Menciones de La Cevichería: 8 veces. Clientes comparan precios de ceviche.",
+      "6 clientes dormidos volvieron después del mensaje de reactivación."
+    ],
+    action: "Considera agregar brunch los fines de semana. La demanda está ahí."
+  }
+};
 
 var SOFIA_KNOWLEDGE = {
   company: {
@@ -32,7 +169,7 @@ var SOFIA_KNOWLEDGE = {
     differentiator: "We're not Silicon Valley generalists. We built this specifically for Latin American hospitality because we live here, we understand the market, and we know WhatsApp is how business actually happens in LATAM.",
     philosophy: "Your AI should sound like you, understand your business, and work 24/7 without complaining. If it doesn't pay for itself in month one, we've failed."
   },
-  
+
   stats: {
     responseTime: "< 30 seconds (vs industry average 4+ hours)",
     revenueRecovered: "$2,000-$8,000+ monthly per client",
@@ -45,7 +182,7 @@ var SOFIA_KNOWLEDGE = {
     firstResponder: "78% book with whoever responds first",
     leakage: "30-40% revenue lost to slow response times"
   },
-  
+
   pricing: {
     setup: "$1,500 one-time setup",
     monthly: "$147-$497/month depending on complexity",
@@ -57,647 +194,1355 @@ var SOFIA_KNOWLEDGE = {
     guarantee: "ROI Guarantee: If your system doesn't recover at least 3x the monthly fee in the first 90 days, we work for free until it does.",
     noContract: "No long-term contracts required. Month-to-month. You stay because it works.",
     paymentSplit: "Setup can be split into 2 payments if needed for cash flow"
-  },
-  
-  services: {
-    concierge: {
-      name: "WhatsApp AI Booking Assistant",
-      description: "24/7 automated responses, trained on YOUR specific business, services, and pricing",
-      features: [
-        "Instant response to every inquiry - day or night",
-        "Natural conversation in Spanish, English, Portuguese, and 5+ languages",
-        "Booking and reservation management with calendar sync",
-        "Payment collection and deposit processing",
-        "Personalized recommendations based on context",
-        "Voice note understanding and response",
-        "Smart escalation to humans when needed"
-      ]
-    },
-    followUp: {
-      name: "Automated Follow-Up Sequences",
-      description: "Never lose a lead to silence again",
-      features: [
-        "24-hour and 48-hour check-ins on silent leads",
-        "Recover 20-30% of leads that would have been lost",
-        "Warm lead nurturing until they're ready to book",
-        "Re-engagement campaigns for past customers",
-        "Abandoned booking recovery"
-      ]
-    },
-    reminders: {
-      name: "Smart Booking Reminders",
-      description: "Eliminate no-shows automatically",
-      features: [
-        "2-day, 1-day, and morning-of reminders",
-        "Confirmation collection",
-        "Easy rescheduling options",
-        "60-80% reduction in no-shows typical"
-      ]
-    },
-    reviews: {
-      name: "Automated Review Engine",
-      description: "Turn happy customers into 5-star reviews",
-      features: [
-        "Automated post-service follow-up",
-        "Happy customers → review link",
-        "Unhappy customers → private feedback before public posts",
-        "3-4x more reviews collected automatically"
-      ]
-    },
-    dashboard: {
-      name: "Real-Time Analytics Dashboard",
-      description: "See everything in one place",
-      features: [
-        "Who messaged, who booked, who needs follow-up",
-        "Revenue tracking and attribution",
-        "Response time metrics",
-        "Conversion analytics"
-      ]
-    }
-  },
-  
-  industries: {
-    hospitality: {
-      name: "Hotels & Hospitality",
-      painPoints: [
-        "Missing after-hours booking requests (60% of inquiries!)",
-        "Staff overwhelmed during peak times",
-        "Language barriers with international guests",
-        "Manual reservation management errors",
-        "Lost upsell and cross-sell opportunities",
-        "No-shows killing revenue"
-      ],
-      results: {
-        revenue: "$3,000-$8,000/month recovered",
-        bookings: "40-60% increase in direct bookings",
-        satisfaction: "Guest satisfaction scores up 25%",
-        time: "Staff saves 20+ hours/week on routine inquiries"
-      },
-      caseStudy: "A boutique hotel in Cartagena was missing 60% of after-hours inquiries. Within 30 days of implementation, they recovered $4,200 in monthly revenue and reduced response time from 4 hours to 30 seconds. The system paid for itself in week 2.",
-      buyingSignal: "They mention 'high season is impossible' or 'I spend all day answering the same questions'"
-    },
-    restaurant: {
-      name: "Restaurants & Nightlife",
-      painPoints: [
-        "Phone ringing constantly during service",
-        "No-shows destroying revenue and wasting tables",
-        "Manual reservation book chaos",
-        "Can't handle multiple inquiries simultaneously",
-        "Losing customers to competitors who respond faster",
-        "Large party and event inquiries falling through cracks"
-      ],
-      results: {
-        noShows: "40-60% reduction in no-shows",
-        revenue: "$2,000-$4,000/month in recovered tables",
-        efficiency: "Handle 5x more reservations without extra staff",
-        reviews: "3-4x more reviews collected automatically"
-      },
-      caseStudy: "A high-end restaurant was losing $3,000/month to no-shows alone. Our reminder system cut that by 60% in the first month. They also captured 15 additional reservations per week from faster response times.",
-      buyingSignal: "They mention 'we can't answer the phone during rush' or 'people don't show up'"
-    },
-    tours: {
-      name: "Tours & Experiences",
-      painPoints: [
-        "Inquiries coming at all hours from different time zones",
-        "Complex itinerary questions taking forever to answer",
-        "Group bookings requiring endless back-and-forth",
-        "Weather and schedule changes needing mass communication",
-        "Missing the booking window when travelers are deciding",
-        "Last-minute bookings going to competitors"
-      ],
-      results: {
-        bookings: "35%+ increase in bookings",
-        conversion: "50% higher inquiry-to-booking conversion",
-        groups: "Handle group bookings 3x faster",
-        reviews: "4x more reviews collected"
-      },
-      caseStudy: "A boat tour operator was responding to inquiries in 6+ hours. Travelers had already booked competitors by then. After implementation, response time dropped to 30 seconds and bookings increased 35% in 60 days.",
-      buyingSignal: "They mention 'tourists message at all hours' or 'by the time I respond, they've booked someone else'"
-    },
-    services: {
-      name: "Professional Services",
-      painPoints: [
-        "Qualified leads slipping through the cracks",
-        "Time wasted on unqualified inquiries",
-        "Inconsistent follow-up losing warm leads",
-        "Clients can't reach you after hours",
-        "Administrative tasks eating billable hours",
-        "No system for collecting testimonials"
-      ],
-      results: {
-        leads: "50% more qualified consultations",
-        time: "Save 15+ hours/week on admin",
-        conversion: "30% higher proposal acceptance",
-        referrals: "2x more referrals collected"
-      },
-      caseStudy: "A law firm was spending 10 hours/week on initial client intake. Our AI now handles qualification, scheduling, and document collection. They've increased consultations by 50% while the partners focus on billable work.",
-      buyingSignal: "They mention 'I spend all day answering basic questions' or 'leads go cold before I can follow up'"
-    },
-    hvac: {
-      name: "HVAC & Home Services",
-      painPoints: [
-        "Emergency calls at midnight you can't answer",
-        "Quote requests requiring manual follow-up",
-        "Technician scheduling conflicts and double-booking",
-        "Service reminder gaps losing maintenance revenue",
-        "Reviews not being collected after good service"
-      ],
-      results: {
-        emergency: "Never miss an emergency call again",
-        quotes: "Automated quote follow-up recovers 20-30% more jobs",
-        scheduling: "Zero double-bookings with calendar integration",
-        maintenance: "Automated reminder sequences for recurring revenue"
-      },
-      caseStudy: "An HVAC company was losing emergency calls every night. Our AI now triages emergencies, schedules non-urgent jobs, and follows up on quotes. They captured $6,000 in additional monthly revenue from jobs that would have gone to competitors.",
-      buyingSignal: "They mention 'I can't be on call 24/7' or 'leads slip through the cracks'"
-    }
-  },
-  
-  technology: {
-    whatsapp: {
-      name: "WhatsApp Business API Integration",
-      why: "In Latin America, WhatsApp isn't just messaging — it's how business gets done. 95% of your customers prefer WhatsApp over email or phone calls.",
-      capabilities: [
-        "Official WhatsApp Business API (not hacks or workarounds)",
-        "Handle unlimited concurrent conversations",
-        "Voice note understanding and response",
-        "Image, document, and catalog sharing",
-        "Payment links and invoicing",
-        "Location sharing and maps integration",
-        "Group chat management for events/parties",
-        "No risk of getting banned — fully compliant"
-      ]
-    },
-    ai: {
-      name: "AI Intelligence Layer",
-      notChatbot: "This isn't a decision tree chatbot that frustrates customers. Our AI actually understands language, handles complex questions, and knows when to bring in a human. Ask a chatbot something unexpected and it breaks. Ask our AI and it figures out the intent and helps anyway.",
-      capabilities: [
-        "Natural language understanding (not keyword matching)",
-        "Context awareness across entire conversation history",
-        "Sentiment detection and smart escalation triggers",
-        "Personality and tone customization to match your brand",
-        "Learning from corrections and feedback",
-        "Multi-turn conversation handling",
-        "Integration with your existing systems"
-      ]
-    },
-    integrations: {
-      supported: [
-        "Google Calendar / Outlook",
-        "Booking systems (Guesty, Lodgify, Hostaway, Booking.com, Airbnb)",
-        "POS systems",
-        "CRM platforms",
-        "Payment processors (Stripe, PayPal, Nequi, Daviplata)",
-        "Review platforms (Google, TripAdvisor, Facebook)",
-        "Custom APIs and databases"
-      ],
-      approach: "We integrate with what you already use. No need to change your systems — we enhance them."
-    }
-  },
-  
-  process: {
-    overview: "We move fast. Most clients are live within 2-3 weeks.",
-    steps: [
-      {
-        name: "Strategy Call",
-        duration: "15 minutes",
-        description: "We understand your business, identify revenue leaks, and show you exactly what we'd build. No pitch — just diagnosis.",
-        what: "By the end, you'll know exactly what system we'd build, expected ROI, and timeline."
-      },
-      {
-        name: "Custom Blueprint",
-        duration: "2-3 days",
-        description: "We design your system based on your specific workflows, brand voice, pricing, and goals. You approve before we build."
-      },
-      {
-        name: "Build & Train",
-        duration: "7-14 days",
-        description: "We build your AI, train it on your actual scenarios, FAQs, policies, and procedures. It sounds like you because we train it on how you actually communicate."
-      },
-      {
-        name: "Launch & Monitor",
-        duration: "1-2 days",
-        description: "Go live with monitoring. We watch every conversation the first week to ensure quality. Any issues get fixed immediately."
-      },
-      {
-        name: "Optimize Forever",
-        duration: "Ongoing",
-        description: "Continuous improvement based on real conversations. Your AI gets smarter every week. Monthly performance reviews included."
-      }
-    ],
-    timeline: {
-      setup: "7-14 days for initial build",
-      live: "2-3 weeks to full deployment",
-      results: "First measurable results within 30 days",
-      roi: "System typically pays for itself in month one, often week 2-3"
-    }
-  },
-  
-  objections: {
-    tooExpensive: {
-      response: "I hear you on budget. But let me ask — what does one lost booking cost you? If your average booking is $200 and this system saves even 2-3 bookings per month that would have been lost to slow response, it's already paid for itself. The question isn't whether you can afford it — it's whether you can afford to keep losing those bookings every single month.",
-      followUp: "What's your average booking value? Let's do the actual math together."
-    },
-    needToThink: {
-      response: "Totally fair — it's a business decision. What specifically do you need to think through? Is it the investment, the timing, or something about how the system works? I want to make sure I've given you everything you need to decide.",
-      urgency: "While you're thinking, consider this: every day without 24/7 coverage is another day of missed inquiries. Even one lost booking this week could have paid for months of service."
-    },
-    haveSomeone: {
-      response: "Great that you have help! But can they respond at 2am when a traveler in Europe wants to book? Handle 10 conversations simultaneously during peak times? Speak 5 languages fluently? Never call in sick or take vacation? We complement your team, not replace them. Your staff handles the important stuff while AI handles the routine.",
-      reframe: "Think of it this way — we free up your team to focus on high-value interactions instead of answering 'what time do you close?' for the 50th time today."
-    },
-    triedChatbots: {
-      response: "Most chatbots ARE terrible — I completely get it. They're decision trees that frustrate customers and make your business look bad. That's not what we build. Our AI actually understands language, handles unexpected questions, and knows when to bring in a human. It's the difference between a phone tree and a trained employee.",
-      question: "What specifically went wrong with the last one? I want to make sure we address that directly."
-    },
-    tooSmall: {
-      response: "Actually, some of our best results come from smaller operations. A boutique hotel recovering $3,000/month in lost revenue transforms their entire business model. A restaurant saving 20 tables per month from no-shows changes their margins completely. You don't need to be big — you just need to stop leaving money on the table.",
-      math: "If you're getting even 20 inquiries a month and missing half because of slow response, that's potentially $2,000-$5,000 in lost revenue. We fix that."
-    },
-    notReady: {
-      response: "What would need to change for you to be ready? Often 'not ready' means 'not sure it'll work' — and that's exactly why we do strategy calls. No commitment, just show you specifically what we'd build and the expected results. Then you decide with full information.",
-      alternatives: "Is it timing? Budget? Technical concerns? Help me understand so I can either address it or tell you honestly if we're not a fit right now."
-    },
-    dontTrustAI: {
-      response: "That's a smart concern — there's a lot of overhyped AI that underdelivers. Here's how we think about it: the AI handles the 80% of conversations that are routine (hours, prices, availability, booking confirmation). The 20% that needs judgment, empathy, or negotiation gets escalated to you immediately. You stay in control.",
-      proof: "Plus, you see every conversation. Nothing happens without your ability to review it. Most clients spend 5 minutes a day checking the dashboard and that's it."
-    },
-    partnerDecision: {
-      response: "Of course — it's a joint decision. Would it help if we scheduled a quick call with both of you? I'm happy to walk them through it too. That way you're both on the same page. When would work?",
-      alternative: "Or if you'd prefer, I can send you a summary document you can share with them. What's more useful?"
-    },
-    seenResultsFirst: {
-      response: "Smart to want proof. Here's what I can offer: we'll have your system live within 2 weeks, and you'll see measurable results within the first month. If you're not seeing value by month two, we'll work with you until you are — that's our guarantee. But even better, let me share some case studies of similar businesses...",
-      caseStudies: true
-    },
-    cheaper: {
-      response: "I appreciate you asking. Our pricing reflects the custom work we do — we're not selling a template, we're building a system specifically for YOUR business, trained on YOUR procedures, matching YOUR brand voice. What I can do is split the setup into two payments if that helps with cash flow. But the value we deliver is worth every dollar — most clients are in profit by week 3.",
-      value: "Think about it this way: a bilingual staff member costs $1,500+/month, works 40 hours, needs training, takes vacation, and can only handle one conversation at a time. Our AI works 24/7, handles unlimited conversations, never needs a day off, and costs a fraction."
-    }
-  },
-  
-  comparisons: {
-    vsAgencies: "Marketing agencies build websites and run ads. Great. But what happens when those leads message you at 10pm? They go to your competitor who responded first. We're not competing with agencies — we're completing the loop. They drive traffic, we capture it.",
-    vsChatbots: "Generic chatbots follow scripts and break when asked anything unexpected. 'I don't understand, please rephrase' — we've all been frustrated by that. Our AI understands intent, handles complex questions, and escalates gracefully. It's the difference between a phone tree and a trained employee.",
-    vsHiring: "A bilingual staff member costs $1,500+/month, works 40 hours, needs training, calls in sick, takes vacation, and can only handle one conversation at a time. Our AI works 24/7/365, handles unlimited conversations, never complains, and costs a fraction.",
-    vsDoingNothing: "Every missed after-hours inquiry is money walking to your competitor. If you're missing even 3-4 bookings a month (and you probably are), that's $1,000+ in lost revenue. Every. Single. Month. This isn't a cost — it's stopping a leak.",
-    vsCompetitors: "Most AI companies are Silicon Valley generalists who don't understand WhatsApp culture, Latin American business norms, or Spanish-language nuance. We live here. We built this specifically for this market. That's why our conversion rates are 85-95% while generic solutions struggle to hit 50%."
-  },
-  
-  trust: {
-    noLockIn: "No long-term contracts. Month-to-month. If it stops working, you stop paying. We earn your business every month.",
-    transparency: "We'll tell you if we're not a fit. If your business doesn't have the inquiry volume or your situation doesn't match our strengths, we'll say so. We'd rather have a good fit than a frustrated client.",
-    risk: "Start small, see results, then grow. Your first 30 days are our proof period. If we don't deliver measurable ROI, we'll work for free until we do.",
-    approach: "We're not trying to close you on this chat. I want to show you what's possible, answer your questions, and let you decide if it makes sense. No pressure.",
-    support: "You're not buying software and being left alone. You get ongoing optimization, priority support, and regular performance reviews. Your success is our success."
-  },
-  
-  referral: {
-    program: "Blue Ocean Referral Partner Program",
-    audience: "Accountants, lawyers, marketing agencies, web developers, business coaches",
-    commission: "$300 immediately when they sign up, plus $29 every month for as long as they're a client. Most clients stay 2+ years. That's $1,000+ per referral.",
-    effort: "You do nothing but make an introduction. We handle all sales, implementation, and support. You just mention us when a client complains about being overwhelmed with WhatsApp messages.",
-    fit: "If you work with hospitality, restaurant, tour, or service businesses, you know they're drowning in messages. Now you have a solution that helps them AND pays you."
-  },
-  
-  spanish: {
-    greeting: "¡Hola! 👋 Soy Sofia, la asistente de IA de MachineMind.\n\nPuedo contarte todo sobre nuestras soluciones de automatización con IA, mostrarte resultados reales que hemos logrado, o ayudarte a ver si somos un buen fit.\n\n¿Qué te trae por aquí hoy?",
-    services: "Construimos infraestructura de IA que captura ingresos y opera 24/7:\n\n🤖 **Concierge IA** - Maneja consultas, reservas, soporte por WhatsApp\n\n💰 **Recuperación de Ingresos** - Captura consultas fuera de horario, hace seguimiento a leads\n\n📊 **Automatización de Reservas** - Gestiona reservas, reduce no-shows en 40%\n\n🌍 **Multi-Idioma** - Español, inglés, portugués y más\n\n¿Qué es más importante para tu negocio?",
-    pricing: "Excelente pregunta. Los precios dependen de tu situación específica.\n\nLa mayoría de clientes invierten $147-497/mes en un sistema que recupera $2,000-8,000+ mensuales. Las matemáticas siempre funcionan a tu favor.\n\nSin costos enormes por adelantado. Sin contratos largos.\n\n📅 Una llamada de 15 minutos te da precios exactos: " + CAL_LINK
   }
 };
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA GLOBAL STYLES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const AnimaGlobalStyles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@200;300;400;500;600;700;800&display=swap');
+
+    .anima-page * {
+      box-sizing: border-box;
+    }
+
+    .anima-page {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: ${COLORS.void};
+      color: ${COLORS.text};
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .anima-page ::selection {
+      background: ${COLORS.cyan};
+      color: ${COLORS.void};
+    }
+
+    @keyframes animaPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.95); }
+    }
+
+    @keyframes animaGlow {
+      0%, 100% { box-shadow: 0 0 20px ${COLORS.cyanGlow}; }
+      50% { box-shadow: 0 0 40px ${COLORS.cyanGlow}, 0 0 60px ${COLORS.cyanDim}; }
+    }
+
+    @keyframes animaFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes animaSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes animaFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .anima-gradient-text {
+      background: ${COLORS.gradient};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  `}</style>
+);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA NEURAL BACKGROUND
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaNeuralBackground() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let nodes = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initNodes();
+    };
+
+    const initNodes = () => {
+      nodes = [];
+      const nodeCount = Math.min(Math.floor(window.innerWidth / 100), 15);
+
+      for (let i = 0; i < nodeCount; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          radius: Math.random() * 3 + 1,
+          pulsePhase: Math.random() * Math.PI * 2,
+          color: Math.random() > 0.7 ? COLORS.gold : COLORS.cyan
+        });
+      }
+    };
+
+    const animate = () => {
+      ctx.fillStyle = 'rgba(3, 5, 8, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      nodes.forEach((node, i) => {
+        node.x += node.vx;
+        node.y += node.vy;
+        node.pulsePhase += 0.02;
+
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+
+        const pulseSize = node.radius + Math.sin(node.pulsePhase) * 1;
+
+        const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, pulseSize * 4);
+        gradient.addColorStop(0, node.color === COLORS.cyan ? 'rgba(0, 212, 255, 0.3)' : 'rgba(212, 164, 32, 0.3)');
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, pulseSize * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, pulseSize, 0, Math.PI * 2);
+        ctx.fillStyle = node.color;
+        ctx.fill();
+
+        nodes.forEach((other, j) => {
+          if (i >= j) return;
+          const dx = other.x - node.x;
+          const dy = other.y - node.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 200) {
+            const opacity = (1 - dist / 200) * 0.3;
+            ctx.beginPath();
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(other.x, other.y);
+            ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        });
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }}
+    />
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA NAVIGATION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaNavigation({ onBack }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <nav style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 1000,
+      padding: '16px 24px',
+      transition: 'all 0.3s ease',
+      background: scrolled ? 'rgba(3, 5, 8, 0.9)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(20px)' : 'none',
+      borderBottom: scrolled ? `1px solid ${COLORS.border}` : 'none'
+    }}>
+      <div style={{
+        maxWidth: '1400px',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <button
+            onClick={onBack}
+            style={{
+              padding: '8px 16px',
+              background: 'transparent',
+              border: `1px solid ${COLORS.border}`,
+              borderRadius: '8px',
+              color: COLORS.text,
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontFamily: 'system-ui'
+            }}
+          >
+            ← Back
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              background: COLORS.gradient,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 800,
+              fontSize: '20px',
+              color: COLORS.void
+            }}>M</div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '16px', letterSpacing: '-0.5px' }}>MACHINEMIND</div>
+              <div style={{ fontSize: '10px', color: COLORS.textMuted, letterSpacing: '2px' }}>ANIMA EDITION</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+          <a href="#problem" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Why ANIMA</a>
+          <a href="#tiers" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Pricing</a>
+          <a href="#moat" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Our Moat</a>
+          <a href="#intelligence" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Intelligence</a>
+
+          <a
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '10px 24px',
+              background: COLORS.gradient,
+              border: 'none',
+              borderRadius: '8px',
+              color: COLORS.void,
+              fontWeight: 600,
+              fontSize: '14px',
+              textDecoration: 'none'
+            }}
+          >
+            Book Strategy Call
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA HERO SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaHeroSection() {
+  const [typedText, setTypedText] = useState('');
+  const fullText = "We don't install chatbots. We install nervous systems.";
+
+  useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setTypedText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: '120px 24px 80px',
+      position: 'relative',
+      textAlign: 'center'
+    }}>
+      <div style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        padding: '8px 20px',
+        background: COLORS.cyanDim,
+        borderRadius: '100px',
+        border: `1px solid ${COLORS.border}`,
+        marginBottom: '32px',
+        animation: 'animaFadeIn 0.6s ease-out'
+      }}>
+        <div style={{
+          width: '8px',
+          height: '8px',
+          borderRadius: '50%',
+          background: COLORS.pulse,
+          animation: 'animaPulse 2s infinite'
+        }} />
+        <span style={{ fontSize: '12px', fontWeight: 600, color: COLORS.cyan, letterSpacing: '2px' }}>
+          ANIMA INTELLIGENT SYSTEMS
+        </span>
+      </div>
+
+      <h1 style={{
+        fontFamily: "'Outfit', sans-serif",
+        fontSize: 'clamp(32px, 6vw, 72px)',
+        fontWeight: 800,
+        lineHeight: 1.1,
+        maxWidth: '1000px',
+        marginBottom: '24px',
+        letterSpacing: '-2px'
+      }}>
+        <span style={{ color: COLORS.text }}>{typedText}</span>
+        <span style={{
+          display: 'inline-block',
+          width: '4px',
+          height: '1em',
+          background: COLORS.cyan,
+          marginLeft: '4px',
+          animation: 'animaPulse 1s infinite'
+        }} />
+      </h1>
+
+      <p style={{
+        fontSize: 'clamp(16px, 2vw, 22px)',
+        color: COLORS.textMuted,
+        maxWidth: '700px',
+        lineHeight: 1.6,
+        marginBottom: '48px',
+        animation: 'animaFadeIn 0.8s ease-out 0.5s both'
+      }}>
+        ANIMA transforms your hospitality business into a 24/7 revenue-capturing,
+        customer-learning, competitor-outsmarting operation.
+        <br /><br />
+        <span style={{ color: COLORS.gold }}>Every deployment makes every other deployment smarter.</span>
+      </p>
+
+      <div style={{
+        display: 'flex',
+        gap: '16px',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        animation: 'animaFadeIn 0.8s ease-out 0.7s both'
+      }}>
+        <a
+          href={CAL_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            padding: '16px 40px',
+            background: COLORS.gradient,
+            border: 'none',
+            borderRadius: '12px',
+            color: COLORS.void,
+            fontWeight: 700,
+            fontSize: '16px',
+            textDecoration: 'none',
+            boxShadow: `0 0 30px ${COLORS.cyanGlow}`
+          }}
+        >
+          Get Your Diagnostic →
+        </a>
+        <a
+          href="#intelligence"
+          style={{
+            padding: '16px 40px',
+            background: 'transparent',
+            border: `2px solid ${COLORS.border}`,
+            borderRadius: '12px',
+            color: COLORS.text,
+            fontWeight: 600,
+            fontSize: '16px',
+            textDecoration: 'none'
+          }}
+        >
+          See Sample Report
+        </a>
+      </div>
+
+      <div style={{
+        display: 'flex',
+        gap: '48px',
+        marginTop: '80px',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        animation: 'animaFadeIn 0.8s ease-out 1s both'
+      }}>
+        {[
+          { value: '<3s', label: 'Response Time' },
+          { value: '85-95%', label: 'Conversion Rate' },
+          { value: '60%', label: 'After-Hours Captures' },
+          { value: '3x', label: 'ROI in 60 Days' }
+        ].map((stat, i) => (
+          <div key={i} style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.cyan }}>{stat.value}</div>
+            <div style={{ fontSize: '12px', color: COLORS.textMuted, letterSpacing: '1px' }}>{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{
+        position: 'absolute',
+        bottom: '40px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        animation: 'animaFloat 2s ease-in-out infinite'
+      }}>
+        <div style={{
+          width: '24px',
+          height: '40px',
+          border: `2px solid ${COLORS.border}`,
+          borderRadius: '12px',
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '8px'
+        }}>
+          <div style={{
+            width: '4px',
+            height: '8px',
+            background: COLORS.cyan,
+            borderRadius: '2px',
+            animation: 'animaPulse 1.5s infinite'
+          }} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA PROBLEM SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaProblemSection() {
+  return (
+    <section id="problem" style={{
+      padding: '120px 24px',
+      position: 'relative'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: COLORS.gold,
+            letterSpacing: '3px',
+            marginBottom: '16px',
+            fontWeight: 600
+          }}>THE PROBLEM</div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4vw, 48px)',
+            fontWeight: 800,
+            lineHeight: 1.2,
+            letterSpacing: '-1px'
+          }}>
+            Your competition is responding in <span style={{ color: COLORS.danger }}>4+ hours</span>.
+            <br />
+            <span style={{ color: COLORS.cyan }}>78% of customers book with whoever responds first.</span>
+          </h2>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '32px'
+        }}>
+          <div style={{
+            padding: '40px',
+            background: `linear-gradient(135deg, rgba(239, 68, 68, 0.1), ${COLORS.bgCard})`,
+            border: `1px solid rgba(239, 68, 68, 0.2)`,
+            borderRadius: '20px'
+          }}>
+            <div style={{
+              fontSize: '12px',
+              color: COLORS.danger,
+              letterSpacing: '2px',
+              marginBottom: '24px',
+              fontWeight: 600
+            }}>WHAT COMPETITORS INSTALL</div>
+            <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', color: COLORS.text }}>
+              A Chatbot
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {[
+                'Static FAQ responses',
+                'No learning capability',
+                'No intelligence reports',
+                'Generic voice and tone',
+                'No network learning',
+                'One-time setup, zero evolution',
+                'Race to the bottom on price'
+              ].map((item, i) => (
+                <li key={i} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  marginBottom: '12px',
+                  color: COLORS.textMuted
+                }}>
+                  <span style={{ color: COLORS.danger }}>✕</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div style={{
+            padding: '40px',
+            background: `linear-gradient(135deg, ${COLORS.cyanDim}, ${COLORS.bgCard})`,
+            border: `1px solid ${COLORS.border}`,
+            borderRadius: '20px',
+            boxShadow: `0 0 60px ${COLORS.cyanDim}`
+          }}>
+            <div style={{
+              fontSize: '12px',
+              color: COLORS.cyan,
+              letterSpacing: '2px',
+              marginBottom: '24px',
+              fontWeight: 600
+            }}>WHAT WE INSTALL</div>
+            <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px' }}>
+              <span className="anima-gradient-text">A Nervous System</span>
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {[
+                'Learns from every interaction',
+                'Weekly intelligence reports',
+                'Business blind spot detection',
+                'Your voice, your brand, your policies',
+                'Network learning across all deployments',
+                'Gets smarter every week',
+                'Premium positioning, premium results'
+              ].map((item, i) => (
+                <li key={i} style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  marginBottom: '12px',
+                  color: COLORS.text
+                }}>
+                  <span style={{ color: COLORS.cyan }}>✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA TIERS SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaTiersSection() {
+  const tiers = [
+    {
+      ...ANIMA_KNOWLEDGE.tiers.nerve,
+      icon: '⚡',
+      color: COLORS.textMuted,
+      featured: false
+    },
+    {
+      ...ANIMA_KNOWLEDGE.tiers.brain,
+      icon: '🧠',
+      color: COLORS.cyan,
+      featured: true
+    },
+    {
+      ...ANIMA_KNOWLEDGE.tiers.soul,
+      icon: '✨',
+      color: COLORS.gold,
+      featured: false
+    }
+  ];
+
+  return (
+    <section id="tiers" style={{
+      padding: '120px 24px',
+      position: 'relative',
+      background: `linear-gradient(180deg, transparent, ${COLORS.cyanDim} 50%, transparent)`
+    }}>
+      <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: COLORS.gold,
+            letterSpacing: '3px',
+            marginBottom: '16px',
+            fontWeight: 600
+          }}>CHOOSE YOUR SYSTEM</div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4vw, 48px)',
+            fontWeight: 800,
+            lineHeight: 1.2,
+            letterSpacing: '-1px',
+            marginBottom: '16px'
+          }}>
+            Three Levels of <span className="anima-gradient-text">Intelligence</span>
+          </h2>
+          <p style={{ color: COLORS.textMuted, fontSize: '18px', maxWidth: '600px', margin: '0 auto' }}>
+            Start where you are. Upgrade when you're ready. Each tier builds on the last.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '24px',
+          alignItems: 'stretch'
+        }}>
+          {tiers.map((tier, i) => (
+            <div key={i} style={{
+              padding: tier.featured ? '3px' : '0',
+              background: tier.featured ? COLORS.gradient : 'transparent',
+              borderRadius: '24px',
+              transform: tier.featured ? 'scale(1.02)' : 'scale(1)'
+            }}>
+              <div style={{
+                height: '100%',
+                padding: '40px',
+                background: COLORS.bgCard,
+                borderRadius: tier.featured ? '22px' : '24px',
+                border: tier.featured ? 'none' : `1px solid ${COLORS.border}`,
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                <div style={{ marginBottom: '24px' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '16px' }}>{tier.icon}</div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: tier.color,
+                    letterSpacing: '2px',
+                    marginBottom: '8px',
+                    fontWeight: 600
+                  }}>{tier.name}</div>
+                  <div style={{ fontSize: '18px', color: COLORS.textMuted }}>{tier.tagline}</div>
+                </div>
+
+                <div style={{ marginBottom: '24px' }}>
+                  {tier.priceType === 'one-time' ? (
+                    <div>
+                      <span style={{ fontSize: '42px', fontWeight: 800, color: COLORS.text }}>{tier.price}</span>
+                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>one-time</span>
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ marginBottom: '8px' }}>
+                        <span style={{ fontSize: '16px', color: COLORS.textMuted }}>{tier.setup} setup + </span>
+                      </div>
+                      <span style={{ fontSize: '42px', fontWeight: 800, color: COLORS.text }}>{tier.monthly}</span>
+                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>/month</span>
+                    </div>
+                  )}
+                </div>
+
+                <p style={{
+                  color: COLORS.textMuted,
+                  marginBottom: '24px',
+                  lineHeight: 1.6
+                }}>{tier.description}</p>
+
+                <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px', flex: 1 }}>
+                  {tier.features.map((feature, j) => (
+                    <li key={j} style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '12px',
+                      marginBottom: '12px',
+                      color: feature.includes('Everything') ? COLORS.gold : COLORS.text,
+                      fontWeight: feature.includes('Everything') ? 600 : 400,
+                      fontSize: '14px'
+                    }}>
+                      <span style={{ color: tier.color }}>✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <div style={{
+                  padding: '16px',
+                  background: COLORS.bgElevated,
+                  borderRadius: '12px',
+                  marginBottom: '24px'
+                }}>
+                  <div style={{ fontSize: '11px', color: COLORS.textMuted, marginBottom: '4px', letterSpacing: '1px' }}>IDEAL FOR</div>
+                  <div style={{ fontSize: '14px', color: COLORS.text }}>{tier.ideal}</div>
+                </div>
+
+                <a
+                  href={tier.status ? '#' : CAL_LINK}
+                  target={tier.status ? '_self' : '_blank'}
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    padding: '16px',
+                    background: tier.featured ? COLORS.gradient : 'transparent',
+                    border: tier.featured ? 'none' : `2px solid ${COLORS.border}`,
+                    borderRadius: '12px',
+                    color: tier.featured ? COLORS.void : COLORS.text,
+                    fontWeight: 700,
+                    fontSize: '16px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    cursor: tier.status ? 'default' : 'pointer',
+                    opacity: tier.status ? 0.6 : 1
+                  }}
+                >
+                  {tier.status || (tier.featured ? 'Get Started with ANIMA →' : 'Learn More')}
+                </a>
+
+                {tier.roi && (
+                  <div style={{
+                    marginTop: '16px',
+                    textAlign: 'center',
+                    fontSize: '13px',
+                    color: COLORS.pulse
+                  }}>
+                    {tier.roi}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA MOAT SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaMoatSection() {
+  const moats = [
+    {
+      ...ANIMA_KNOWLEDGE.moat.diagnostic,
+      icon: '🔬',
+      color: COLORS.neural
+    },
+    {
+      ...ANIMA_KNOWLEDGE.moat.intelligence,
+      icon: '📊',
+      color: COLORS.cyan
+    },
+    {
+      ...ANIMA_KNOWLEDGE.moat.network,
+      icon: '🌐',
+      color: COLORS.gold
+    }
+  ];
+
+  return (
+    <section id="moat" style={{
+      padding: '120px 24px',
+      position: 'relative'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: COLORS.gold,
+            letterSpacing: '3px',
+            marginBottom: '16px',
+            fontWeight: 600
+          }}>THE UNCOPYABLE ADVANTAGE</div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4vw, 48px)',
+            fontWeight: 800,
+            lineHeight: 1.2,
+            letterSpacing: '-1px',
+            marginBottom: '16px'
+          }}>
+            Three Things <span className="anima-gradient-text">No One Can Replicate</span>
+          </h2>
+          <p style={{ color: COLORS.textMuted, fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
+            These aren't features. They're structural advantages that compound over time.
+            Once you have them, your competitors can't catch up.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gap: '32px' }}>
+          {moats.map((moat, i) => (
+            <div key={i} style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '32px',
+              padding: '48px',
+              background: COLORS.bgCard,
+              borderRadius: '24px',
+              border: `1px solid ${COLORS.border}`,
+              alignItems: 'center'
+            }}>
+              <div>
+                <div style={{ fontSize: '64px', marginBottom: '24px' }}>{moat.icon}</div>
+                <div style={{
+                  fontSize: '14px',
+                  color: moat.color,
+                  letterSpacing: '2px',
+                  marginBottom: '8px',
+                  fontWeight: 600
+                }}>{moat.title.toUpperCase()}</div>
+                <div style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>{moat.subtitle}</div>
+                <p style={{ color: COLORS.textMuted, lineHeight: 1.7 }}>{moat.description}</p>
+              </div>
+              <div style={{
+                padding: '32px',
+                background: `linear-gradient(135deg, ${moat.color}15, ${COLORS.bgElevated})`,
+                borderRadius: '16px',
+                borderLeft: `4px solid ${moat.color}`
+              }}>
+                <div style={{ fontSize: '14px', color: moat.color, fontWeight: 600, marginBottom: '12px' }}>THE LOCK-IN EFFECT</div>
+                <p style={{ color: COLORS.text, lineHeight: 1.7, fontSize: '16px' }}>{moat.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA INTELLIGENCE SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaIntelligenceSection() {
+  const report = ANIMA_KNOWLEDGE.weeklyReport;
+
+  return (
+    <section id="intelligence" style={{
+      padding: '120px 24px',
+      position: 'relative',
+      background: `linear-gradient(180deg, transparent, ${COLORS.goldDim} 50%, transparent)`
+    }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: COLORS.gold,
+            letterSpacing: '3px',
+            marginBottom: '16px',
+            fontWeight: 600
+          }}>WEEKLY INTELLIGENCE REPORT</div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4vw, 48px)',
+            fontWeight: 800,
+            lineHeight: 1.2,
+            letterSpacing: '-1px',
+            marginBottom: '16px'
+          }}>
+            This Is What You've Been <span className="anima-gradient-text">Missing</span>
+          </h2>
+          <p style={{ color: COLORS.textMuted, fontSize: '18px' }}>
+            Every Monday. Delivered to your WhatsApp. Insights that change how you run your business.
+          </p>
+        </div>
+
+        <div style={{
+          background: COLORS.bgCard,
+          borderRadius: '24px',
+          border: `1px solid ${COLORS.border}`,
+          overflow: 'hidden',
+          boxShadow: `0 0 80px ${COLORS.cyanDim}`
+        }}>
+          <div style={{
+            padding: '24px 32px',
+            background: COLORS.bgElevated,
+            borderBottom: `1px solid ${COLORS.border}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              background: COLORS.gradient,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px'
+            }}>📊</div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '18px' }}>ANIMA — Resumen Semanal</div>
+              <div style={{ color: COLORS.textMuted, fontSize: '14px' }}>Tu Restaurante | Semana del 27 Ene al 2 Feb</div>
+            </div>
+          </div>
+
+          <div style={{
+            padding: '32px',
+            background: `linear-gradient(135deg, ${COLORS.goldDim}, transparent)`,
+            borderBottom: `1px solid ${COLORS.border}`
+          }}>
+            <div style={{ fontSize: '12px', color: COLORS.gold, marginBottom: '12px', fontWeight: 600 }}>🔥 LO MÁS IMPORTANTE ESTA SEMANA</div>
+            <p style={{ fontSize: '20px', fontWeight: 600, lineHeight: 1.5 }}>{report.headline}</p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            borderBottom: `1px solid ${COLORS.border}`
+          }}>
+            {[
+              { label: 'Conversaciones', value: report.metrics.conversations, icon: '💬' },
+              { label: 'Reservas', value: report.metrics.bookings, icon: '✅' },
+              { label: 'Conversión', value: report.metrics.conversion, icon: '📈' },
+              { label: 'Valor Generado', value: report.metrics.revenue, icon: '💰' },
+              { label: 'Fuera de Horario', value: report.metrics.afterHours, icon: '🌙' },
+              { label: 'No-Shows', value: report.metrics.noShows, icon: '❌' }
+            ].map((metric, i) => (
+              <div key={i} style={{
+                padding: '24px',
+                textAlign: 'center',
+                borderRight: (i + 1) % 3 !== 0 ? `1px solid ${COLORS.border}` : 'none',
+                borderBottom: i < 3 ? `1px solid ${COLORS.border}` : 'none'
+              }}>
+                <div style={{ fontSize: '24px', marginBottom: '8px' }}>{metric.icon}</div>
+                <div style={{ fontSize: '28px', fontWeight: 800, color: COLORS.cyan }}>{metric.value}</div>
+                <div style={{ fontSize: '12px', color: COLORS.textMuted }}>{metric.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ padding: '32px' }}>
+            <div style={{ fontSize: '12px', color: COLORS.cyan, marginBottom: '16px', fontWeight: 600 }}>💡 INSIGHTS CLAVE</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {report.insights.map((insight, i) => (
+                <div key={i} style={{
+                  padding: '16px',
+                  background: COLORS.bgElevated,
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  lineHeight: 1.5,
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px'
+                }}>
+                  <span style={{ color: COLORS.cyan }}>→</span>
+                  {insight}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            padding: '24px 32px',
+            background: COLORS.bgElevated,
+            borderTop: `1px solid ${COLORS.border}`
+          }}>
+            <div style={{ fontSize: '12px', color: COLORS.pulse, marginBottom: '8px', fontWeight: 600 }}>🎯 ACCIÓN DE LA SEMANA</div>
+            <p style={{ fontSize: '16px', fontWeight: 500 }}>{report.action}</p>
+          </div>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '48px' }}>
+          <p style={{ color: COLORS.textMuted, marginBottom: '24px' }}>
+            Imagine getting this every week. Knowing exactly what's happening in your business.
+          </p>
+          <a
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-block',
+              padding: '16px 40px',
+              background: COLORS.gradient,
+              border: 'none',
+              borderRadius: '12px',
+              color: COLORS.void,
+              fontWeight: 700,
+              fontSize: '16px',
+              textDecoration: 'none'
+            }}
+          >
+            Start Getting Intelligence →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA ROI CALCULATOR SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaROISection() {
+  const [inquiriesPerWeek, setInquiriesPerWeek] = useState(50);
+  const [avgTicket, setAvgTicket] = useState(150000);
+  const [noShowRate, setNoShowRate] = useState(15);
+
+  const missedAfterHours = Math.floor(inquiriesPerWeek * 0.6 * 0.3);
+  const recoveredBookings = Math.floor(missedAfterHours * 0.8);
+  const afterHoursRevenue = recoveredBookings * avgTicket * 4;
+
+  const currentNoShows = Math.floor(inquiriesPerWeek * 0.5 * (noShowRate / 100) * 4);
+  const reducedNoShows = Math.floor(currentNoShows * 0.5);
+  const noShowSavings = reducedNoShows * avgTicket;
+
+  const totalMonthlyValue = afterHoursRevenue + noShowSavings;
+  const animaCost = 1500 * 4200;
+  const roi = ((totalMonthlyValue - animaCost) / animaCost * 100).toFixed(0);
+
+  const formatCOP = (num) => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(num);
+
+  return (
+    <section style={{ padding: '120px 24px', position: 'relative' }}>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <div style={{
+            fontSize: '12px',
+            color: COLORS.gold,
+            letterSpacing: '3px',
+            marginBottom: '16px',
+            fontWeight: 600
+          }}>ROI CALCULATOR</div>
+          <h2 style={{
+            fontSize: 'clamp(28px, 4vw, 48px)',
+            fontWeight: 800,
+            lineHeight: 1.2,
+            letterSpacing: '-1px'
+          }}>
+            Calculate Your <span className="anima-gradient-text">Revenue Recovery</span>
+          </h2>
+        </div>
+
+        <div style={{
+          background: COLORS.bgCard,
+          borderRadius: '24px',
+          border: `1px solid ${COLORS.border}`,
+          overflow: 'hidden'
+        }}>
+          <div style={{ padding: '32px', borderBottom: `1px solid ${COLORS.border}` }}>
+            <div style={{ display: 'grid', gap: '24px' }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Consultas por semana</label>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.cyan }}>{inquiriesPerWeek}</span>
+                </div>
+                <input
+                  type="range"
+                  min="10"
+                  max="200"
+                  value={inquiriesPerWeek}
+                  onChange={(e) => setInquiriesPerWeek(Number(e.target.value))}
+                  style={{
+                    width: '100%',
+                    height: '8px',
+                    borderRadius: '4px',
+                    background: COLORS.bgElevated,
+                    appearance: 'none',
+                    cursor: 'pointer'
+                  }}
+                />
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Ticket promedio</label>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.cyan }}>{formatCOP(avgTicket)}</span>
+                </div>
+                <input
+                  type="range"
+                  min="50000"
+                  max="500000"
+                  step="10000"
+                  value={avgTicket}
+                  onChange={(e) => setAvgTicket(Number(e.target.value))}
+                  style={{
+                    width: '100%',
+                    height: '8px',
+                    borderRadius: '4px',
+                    background: COLORS.bgElevated,
+                    appearance: 'none',
+                    cursor: 'pointer'
+                  }}
+                />
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Tasa de no-shows actual</label>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.danger }}>{noShowRate}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="40"
+                  value={noShowRate}
+                  onChange={(e) => setNoShowRate(Number(e.target.value))}
+                  style={{
+                    width: '100%',
+                    height: '8px',
+                    borderRadius: '4px',
+                    background: COLORS.bgElevated,
+                    appearance: 'none',
+                    cursor: 'pointer'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style={{ padding: '32px', background: COLORS.bgElevated }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+              <div style={{
+                padding: '24px',
+                background: COLORS.bgCard,
+                borderRadius: '16px',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>Reservas recuperadas/mes</div>
+                <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.cyan }}>{recoveredBookings * 4}</div>
+              </div>
+              <div style={{
+                padding: '24px',
+                background: COLORS.bgCard,
+                borderRadius: '16px',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>No-shows evitados/mes</div>
+                <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.pulse }}>{reducedNoShows}</div>
+              </div>
+            </div>
+
+            <div style={{
+              padding: '32px',
+              background: `linear-gradient(135deg, ${COLORS.cyanDim}, ${COLORS.goldDim})`,
+              borderRadius: '16px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '14px', color: COLORS.textMuted, marginBottom: '8px' }}>VALOR MENSUAL RECUPERADO</div>
+              <div style={{ fontSize: '48px', fontWeight: 800, marginBottom: '8px' }}>
+                <span className="anima-gradient-text">{formatCOP(totalMonthlyValue)}</span>
+              </div>
+              <div style={{ fontSize: '24px', color: COLORS.pulse, fontWeight: 700 }}>
+                ROI: {roi}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA CTA SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaCTASection() {
+  return (
+    <section style={{
+      padding: '120px 24px',
+      position: 'relative',
+      textAlign: 'center'
+    }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ fontSize: '64px', marginBottom: '32px' }}>🧠</div>
+        <h2 style={{
+          fontSize: 'clamp(28px, 4vw, 52px)',
+          fontWeight: 800,
+          lineHeight: 1.2,
+          letterSpacing: '-1px',
+          marginBottom: '24px'
+        }}>
+          Your Business Deserves a <span className="anima-gradient-text">Nervous System</span>
+        </h2>
+        <p style={{
+          fontSize: '20px',
+          color: COLORS.textMuted,
+          marginBottom: '48px',
+          lineHeight: 1.6
+        }}>
+          Stop responding. Start understanding.
+          <br />
+          The free diagnostic alone will show you things about your business you never knew.
+        </p>
+
+        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '20px 48px',
+              background: COLORS.gradient,
+              border: 'none',
+              borderRadius: '16px',
+              color: COLORS.void,
+              fontWeight: 700,
+              fontSize: '18px',
+              textDecoration: 'none',
+              boxShadow: `0 0 40px ${COLORS.cyanGlow}`,
+              animation: 'animaGlow 3s ease-in-out infinite'
+            }}
+          >
+            Book Your Free Diagnostic →
+          </a>
+          <a
+            href={WHATSAPP}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '20px 48px',
+              background: 'transparent',
+              border: `2px solid ${COLORS.border}`,
+              borderRadius: '16px',
+              color: COLORS.text,
+              fontWeight: 600,
+              fontSize: '18px',
+              textDecoration: 'none'
+            }}
+          >
+            💬 Message Us on WhatsApp
+          </a>
+        </div>
+
+        <div style={{
+          marginTop: '48px',
+          padding: '24px',
+          background: COLORS.bgCard,
+          borderRadius: '16px',
+          border: `1px solid ${COLORS.border}`
+        }}>
+          <div style={{ fontSize: '14px', color: COLORS.textMuted }}>
+            No commitment required. No credit card. Just 45 minutes that will change how you see your business.
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA FOOTER
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaFooter() {
+  return (
+    <footer style={{
+      padding: '48px 24px',
+      borderTop: `1px solid ${COLORS.border}`,
+      background: COLORS.bgCard
+    }}>
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '24px'
+      }}>
+        <div>
+          <div style={{ fontWeight: 700, marginBottom: '8px' }}>MACHINEMIND</div>
+          <div style={{ fontSize: '12px', color: COLORS.textMuted }}>
+            v5.0 ANIMA EDITION | Built in Cartagena 🇨🇴
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '24px' }}>
+          <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Instagram</a>
+          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>WhatsApp</a>
+          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Book a Call</a>
+        </div>
+
+        <div style={{ fontSize: '12px', color: COLORS.textDim }}>
+          © 2026 MachineMind. ANIMA Intelligent Systems.
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ANIMA FULL EXPERIENCE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function AnimaExperience({ onBack }) {
+  return (
+    <div className="anima-page">
+      <AnimaGlobalStyles />
+      <AnimaNeuralBackground />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <AnimaNavigation onBack={onBack} />
+        <main>
+          <AnimaHeroSection />
+          <AnimaProblemSection />
+          <AnimaTiersSection />
+          <AnimaMoatSection />
+          <AnimaIntelligenceSection />
+          <AnimaROISection />
+          <AnimaCTASection />
+        </main>
+        <AnimaFooter />
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// STANDARD COMPONENTS (SOFIA CHAT, PARTICLES, ETC)
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function SofiaChat(props) {
   var isOpen = props.isOpen;
   var onClose = props.onClose;
-  
-  var initialMessage = { 
-    role: "sofia", 
-    text: "Hey! 👋 I'm Sofia, MachineMind's AI assistant.\n\nI can tell you about our AI automation solutions, show you real results we've achieved, or help you figure out if we're a good fit for your business.\n\nWhat brings you here today?" 
+
+  var initialMessage = {
+    role: "sofia",
+    text: "Hey! 👋 I'm Sofia, MachineMind's AI assistant.\n\nI can tell you about our AI automation solutions, show you real results we've achieved, or help you figure out if we're a good fit for your business.\n\nWhat brings you here today?"
   };
-  
+
   var [messages, setMessages] = useState([initialMessage]);
   var [input, setInput] = useState("");
   var [isTyping, setIsTyping] = useState(false);
-  var [context, setContext] = useState({ 
-    industry: null, 
-    questionsAsked: 0, 
-    objectionCount: 0,
-    interested: false,
-    language: "en",
-    businessType: null,
-    hasShownCaseStudy: false,
-    hasShownPricing: false,
-    conversationStage: "discovery"
-  });
   var messagesEndRef = useRef(null);
 
   useEffect(function() {
     if (messagesEndRef.current) messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
-  function detectIntent(msg) {
-    var m = msg.toLowerCase().trim();
-    
-    // Spanish detection
-    if (m.match(/hola|buenos|buenas|qué tal|como estas|necesito|quiero|precio|cuanto|cuesta|español|servicio|negocio|ayuda|reserva|hotel|restaurante/)) {
-      return "spanish";
-    }
-    
-    // Greetings
-    if (m.match(/^(hi|hello|hey|hola|good morning|good afternoon|good evening|sup|yo|what's up|howdy)[\s!.,?]*$/i)) return "greeting";
-    
-    // High intent signals
-    if (m.match(/sign up|get started|let's do it|i'm in|ready to start|want to start|how do i start|interested|ready|let's go|book.*call|schedule|yes|sounds good|i want|need this|perfect/)) return "high_intent";
-    
-    // Pricing questions
-    if (m.match(/price|pricing|cost|how much|fee|rate|budget|afford|expensive|cheap|investment|pay|charge|subscription|monthly|setup/)) return "pricing";
-    
-    // Booking/call scheduling
-    if (m.match(/book|call|schedule|meeting|talk|speak|demo|consultation|strategy|appointment|calendar|available|free time/)) return "booking";
-    
-    // Services overview
-    if (m.match(/service|what do you|offer|help|do for|provide|solution|what can you/)) return "services";
-    
-    // Specific services
-    if (m.match(/concierge|assistant|virtual/)) return "service_concierge";
-    if (m.match(/revenue|recover|lost|missing|leak|money/)) return "service_revenue";
-    if (m.match(/booking|reservation|no.?show|cancel|reminder/)) return "service_booking";
-    if (m.match(/language|spanish|english|portuguese|multilingual|translate|bilingual/)) return "service_multilingual";
-    if (m.match(/review|reputation|google|tripadvisor|rating/)) return "service_reviews";
-    if (m.match(/follow.?up|nurture|sequence|automat/)) return "service_followup";
-    
-    // Industries
-    if (m.match(/hotel|hospitality|lodging|accommodation|resort|hostel|airbnb|bnb|vacation rental|boutique/)) return "industry_hospitality";
-    if (m.match(/restaurant|food|dining|bar|club|nightlife|cafe|bistro|catering|chef/)) return "industry_restaurant";
-    if (m.match(/tour|experience|excursion|boat|adventure|travel|activity|guide|operator/)) return "industry_tours";
-    if (m.match(/lawyer|law|legal|doctor|medical|clinic|consult|professional|accountant|real estate|agent|coach|therapist/)) return "industry_services";
-    if (m.match(/hvac|plumb|electric|contractor|home service|repair|maintenance|technician/)) return "industry_hvac";
-    
-    // Technology questions
-    if (m.match(/whatsapp/)) return "tech_whatsapp";
-    if (m.match(/ai|artificial|intelligence|machine learning|gpt|chatbot|bot|smart/)) return "tech_ai";
-    if (m.match(/integrat|connect|sync|crm|calendar|system|software|api/)) return "tech_integrations";
-    
-    // Process/timeline
-    if (m.match(/how long|timeline|time|fast|quick|setup|implement|start|begin|process|work|step|phase/)) return "process";
-    
-    // Results/proof
-    if (m.match(/result|roi|return|proof|case study|example|client|success|testimonial|evidence|number|metric|data/)) return "results";
-    
-    // Company info
-    if (m.match(/who are|about you|company|team|founder|based|location|where are|background|story/)) return "about";
-    
-    // Objections
-    if (m.match(/expensive|too much|can't afford|budget.*tight|cost.*high/)) return "objection_expensive";
-    if (m.match(/not sure|uncertain|maybe|thinking|consider|don't know|unsure/)) return "objection_unsure";
-    if (m.match(/think about|need time|decide later|get back|mull over/)) return "objection_think";
-    if (m.match(/already have|have someone|staff|employee|team handle|current|existing/)) return "objection_have_someone";
-    if (m.match(/tried|chatbot|didn't work|bad experience|past|before|failed/)) return "objection_tried_chatbots";
-    if (m.match(/too small|small business|just me|solo|tiny|little/)) return "objection_too_small";
-    if (m.match(/not ready|later|next month|next year|busy|not now|wait/)) return "objection_not_ready";
-    if (m.match(/trust|skeptic|doubt|believe|scam|legit|real/)) return "objection_trust";
-    if (m.match(/partner|spouse|wife|husband|co-founder|boss|discuss.*with/)) return "objection_partner";
-    if (m.match(/see.*result|proof|evidence|show me|demonstrate/)) return "objection_proof";
-    if (m.match(/cheaper|discount|deal|lower|negotiate|better price/)) return "objection_cheaper";
-    
-    // Comparisons
-    if (m.match(/vs|versus|compared|difference|better|competitor|alternative|other|similar/)) return "comparison";
-    if (m.match(/why you|why machinemind|what makes|different|special|unique|stand out/)) return "differentiator";
-    
-    // Trust/risk
-    if (m.match(/guarantee|risk|contract|commitment|cancel|refund|safe|secure/)) return "trust";
-    
-    // Specific questions
-    if (m.match(/after.?hours|night|weekend|24.?7|always|sleep|late|early morning/)) return "after_hours";
-    if (m.match(/human|real person|escalate|transfer|handoff|someone.*help|live agent/)) return "human_handoff";
-    if (m.match(/custom|personalize|brand|voice|tone|specific|tailored/)) return "customization";
-    if (m.match(/secure|security|data|privacy|safe|gdpr|compliant|encrypt/)) return "security";
-    if (m.match(/support|help|problem|issue|maintain|update|fix/)) return "support";
-    
-    // Referral
-    if (m.match(/referral|partner|commission|affiliate|earn|introduce|recommend clients/)) return "referral";
-    
-    // Positive/negative signals
-    if (m.match(/thank|thanks|helpful|great|awesome|perfect|appreciate|wonderful|amazing/)) return "thanks";
-    if (m.match(/no thanks|not interested|stop|bye|goodbye|leave|not for me|pass/)) return "not_interested";
-    
-    // Questions about specific features
-    if (m.match(/voice|audio|recording|call|phone/)) return "voice_features";
-    if (m.match(/report|analytics|dashboard|track|measure|metric/)) return "analytics";
-    
-    return "general";
-  }
-
-  function sofiaRespond(userMessage, currentContext) {
-    var intent = detectIntent(userMessage);
-    var K = SOFIA_KNOWLEDGE;
-    var newContext = Object.assign({}, currentContext, { questionsAsked: currentContext.questionsAsked + 1 });
-    
-    // Update context based on intent
-    if (intent.startsWith("industry_")) {
-      newContext.industry = intent.replace("industry_", "");
-    }
-    if (intent.startsWith("objection_")) {
-      newContext.objectionCount = (newContext.objectionCount || 0) + 1;
-    }
-    if (intent === "high_intent") {
-      newContext.interested = true;
-      newContext.conversationStage = "closing";
-    }
-    
-    setContext(newContext);
-    
-    // Dynamic CTAs based on conversation stage
-    var ctaVariations = [
-      "\n\n📅 Want to see how this works for your business? " + CAL_LINK,
-      "\n\n📅 Worth a 15-min call to explore? No pitch, just diagnosis: " + CAL_LINK,
-      "\n\n📅 Let's map out exactly what we'd build for you: " + CAL_LINK,
-      "\n\n📅 Free strategy call — see your custom system before deciding: " + CAL_LINK
-    ];
-    var cta = ctaVariations[newContext.questionsAsked % ctaVariations.length];
-    
-    var softCta = "\n\nWhat else can I tell you?";
-    var closingCta = "\n\n📅 Ready to see what we'd build? Pick a time: " + CAL_LINK;
-    
-    switch (intent) {
-      case "spanish":
-        newContext.language = "es";
-        setContext(newContext);
-        return K.spanish.greeting;
-      
-      case "greeting":
-        return "Hey! 👋 Great to have you here.\n\nAre you looking to capture more bookings, automate customer communication, or just curious about what AI can do for your business?";
-      
-      case "high_intent":
-        return "Love that energy! 🎯\n\nNext step is a quick 15-minute strategy call where we:\n\n1. Understand your specific situation and pain points\n2. Show you exactly what we'd build\n3. Give you realistic timeline and ROI numbers\n\nNo pressure, no commitment — just see if it makes sense.\n\n📅 Pick a time that works: " + CAL_LINK + "\n\nOr if you have more questions first, I'm here!";
-      
-      case "pricing":
-        newContext.hasShownPricing = true;
-        setContext(newContext);
-        return "Great question — let me be transparent.\n\n**Typical investment:**\n• " + K.pricing.setup + " (one-time, can split into 2 payments)\n• " + K.pricing.starterMonthly + " ongoing\n\n**What you get back:**\n• " + K.stats.revenueRecovered + "\n• System typically pays for itself in week 2-3\n\n" + K.pricing.guarantee + "\n\n📅 A 15-minute call gives you exact pricing for your situation: " + CAL_LINK + "\n\nWhat kind of business are you running? That'll help me give you more specific numbers.";
-      
-      case "booking":
-        return "Let's do it! 🎯\n\nIn 15 minutes, we'll:\n• Map your current inquiry flow and identify leaks\n• Show you exactly what your custom system would look like\n• Give you realistic timeline and ROI projection\n\nNo pitch, no pressure. If we're not a fit, I'll tell you.\n\n📅 Pick a time: " + CAL_LINK;
-      
-      case "services":
-        return "We build AI infrastructure that captures revenue 24/7:\n\n🤖 **WhatsApp AI Concierge** — Handles inquiries, bookings, FAQs instantly\n\n💰 **Revenue Recovery** — Captures after-hours inquiries (60% of leads!), follows up automatically\n\n📊 **Booking Automation** — Manages reservations, cuts no-shows by 40-60%\n\n⭐ **Review Engine** — Collects 3-4x more reviews automatically\n\n🌍 **Multi-Language** — Spanish, English, Portuguese and more\n\nThe system responds in under 30 seconds, 24/7. Your competitors respond in 4+ hours.\n\nWhich of these matters most to your business?";
-      
-      case "service_concierge":
-        var sc = K.services.concierge;
-        return "**WhatsApp AI Booking Assistant**\n\n" + sc.description + "\n\nWhat it handles:\n" + sc.features.slice(0,5).map(function(f) { return "• " + f; }).join("\n") + "\n\nThe AI sounds like you because we train it on YOUR business, YOUR tone, YOUR policies. It's not a generic bot — it's YOUR trained employee that never sleeps." + cta;
-      
-      case "service_revenue":
-        return "**Revenue Recovery** — This is the big one.\n\n" + K.stats.firstResponder + "\n\nBut most businesses take 2-4 hours to respond. Every hour of delay = money walking to your competitor.\n\nWe capture:\n• After-hours inquiries (60% of all leads!)\n• Abandoned bookings with follow-up sequences\n• Warm leads that go cold without nurturing\n• Past customers ready to return\n\n💰 **Average result: " + K.stats.revenueRecovered + "**\n\nThe system pays for itself. Usually in week 2 or 3." + cta;
-      
-      case "service_booking":
-        var sb = K.services.reminders;
-        return "**Booking Automation & No-Show Prevention**\n\n" + sb.description + "\n\n• " + sb.features.join("\n• ") + "\n\n📊 Restaurants report " + K.stats.noShowReduction + " fewer no-shows. At $50 average cover, that's thousands recovered monthly." + cta;
-      
-      case "service_reviews":
-        var sr = K.services.reviews;
-        return "**Automated Review Engine**\n\n" + sr.description + "\n\n• " + sr.features.join("\n• ") + "\n\nMore reviews = higher Google ranking = more bookings. It's a flywheel." + cta;
-      
-      case "service_followup":
-        var sf = K.services.followUp;
-        return "**Automated Follow-Up Sequences**\n\n" + sf.description + "\n\n• " + sf.features.join("\n• ") + "\n\nMost leads aren't lost because they said no — they're lost because nobody followed up. We fix that automatically." + cta;
-      
-      case "service_multilingual":
-        return "**Multi-Language Support**\n\nYour AI speaks:\n• Native-quality Spanish (Latin American dialects)\n• English\n• Portuguese\n• French\n• German\n• And more on request\n\nNot just translation — cultural context awareness. The AI knows how to communicate appropriately in each language.\n\n🌍 Hotels report 25% increase in international bookings after implementation." + cta;
-      
-      case "industry_hospitality":
-        var h = K.industries.hospitality;
-        newContext.hasShownCaseStudy = true;
-        setContext(newContext);
-        return "**Hotels & Hospitality** — Our sweet spot! 🏨\n\nPain points we eliminate:\n" + h.painPoints.slice(0,4).map(function(p) { return "• " + p; }).join("\n") + "\n\n**Results:**\n💰 " + h.results.revenue + "\n📈 " + h.results.bookings + "\n⏱️ " + h.results.time + "\n\n**Case Study:** " + h.caseStudy + cta;
-      
-      case "industry_restaurant":
-        var r = K.industries.restaurant;
-        newContext.hasShownCaseStudy = true;
-        setContext(newContext);
-        return "**Restaurants & Nightlife** — We solve the phone-during-service problem! 🍽️\n\nPain points we eliminate:\n" + r.painPoints.slice(0,4).map(function(p) { return "• " + p; }).join("\n") + "\n\n**Results:**\n📉 " + r.results.noShows + "\n💰 " + r.results.revenue + "\n⭐ " + r.results.reviews + "\n\n**Case Study:** " + r.caseStudy + cta;
-      
-      case "industry_tours":
-        var t = K.industries.tours;
-        newContext.hasShownCaseStudy = true;
-        setContext(newContext);
-        return "**Tours & Experiences** — Perfect for operators! ⛵\n\nPain points we eliminate:\n" + t.painPoints.slice(0,4).map(function(p) { return "• " + p; }).join("\n") + "\n\n**Results:**\n📈 " + t.results.bookings + "\n🎯 " + t.results.conversion + "\n⭐ " + t.results.reviews + "\n\n**Case Study:** " + t.caseStudy + cta;
-      
-      case "industry_services":
-        var s = K.industries.services;
-        newContext.hasShownCaseStudy = true;
-        setContext(newContext);
-        return "**Professional Services** — We turn inquiries into consultations! 💼\n\nPain points we eliminate:\n" + s.painPoints.slice(0,4).map(function(p) { return "• " + p; }).join("\n") + "\n\n**Results:**\n📈 " + s.results.leads + "\n⏱️ " + s.results.time + "\n🎯 " + s.results.conversion + "\n\n**Case Study:** " + s.caseStudy + cta;
-      
-      case "industry_hvac":
-        var hv = K.industries.hvac;
-        newContext.hasShownCaseStudy = true;
-        setContext(newContext);
-        return "**HVAC & Home Services** — Never miss an emergency call again! 🔧\n\nPain points we eliminate:\n" + hv.painPoints.slice(0,4).map(function(p) { return "• " + p; }).join("\n") + "\n\n**Results:**\n🚨 " + hv.results.emergency + "\n💰 " + hv.results.quotes + "\n📅 " + hv.results.scheduling + "\n\n**Case Study:** " + hv.caseStudy + cta;
-      
-      case "tech_whatsapp":
-        var tw = K.technology.whatsapp;
-        return "**WhatsApp Integration** — Huge for Latin America! 💬\n\n" + tw.why + "\n\nOur WhatsApp AI handles:\n" + tw.capabilities.slice(0,6).map(function(c) { return "• " + c; }).join("\n") + "\n\nWe use the official WhatsApp Business API — fully compliant, unlimited conversations, no risk of getting banned." + cta;
-      
-      case "tech_ai":
-        var ta = K.technology.ai;
-        return "**Our AI Technology**\n\n" + ta.notChatbot + "\n\n**Capabilities:**\n" + ta.capabilities.slice(0,5).map(function(c) { return "• " + c; }).join("\n") + "\n\nThe difference? A chatbot breaks when asked something unexpected. Our AI figures out the intent and helps anyway. It's genuinely intelligent, not just keyword matching." + cta;
-      
-      case "tech_integrations":
-        return "**Integrations** — We connect with what you already use\n\n" + K.technology.integrations.approach + "\n\nCommon integrations:\n" + K.technology.integrations.supported.slice(0,7).map(function(i) { return "• " + i; }).join("\n") + "\n\nWhat systems do you currently use? I can tell you if we integrate.";
-      
-      case "process":
-        var p = K.process;
-        return "**How It Works** — We move fast! ⚡\n\n" + p.steps.map(function(step, i) { return (i+1) + ". **" + step.name + "** (" + step.duration + ")\n   " + step.description; }).join("\n\n") + "\n\n📊 **Timeline:**\n• Setup: " + p.timeline.setup + "\n• Live: " + p.timeline.live + "\n• First results: " + p.timeline.results + "\n• ROI: " + p.timeline.roi + cta;
-      
-      case "results":
-        return "**Real Results** — Numbers don't lie 📊\n\n💰 Revenue recovered: " + K.stats.revenueRecovered + "\n⚡ Response time: " + K.stats.responseTime + "\n🌙 After-hours capture: " + K.stats.afterHours + "\n📈 Booking increase: " + K.stats.bookingIncrease + "\n📉 No-show reduction: " + K.stats.noShowReduction + "\n⏱️ Time saved: " + K.stats.timeSaved + "\n⭐ Client satisfaction: " + K.stats.nps + "\n\n" + K.pricing.guarantee + cta;
-      
-      case "about":
-        return "**About MachineMind**\n\n" + K.company.mission + "\n\n📍 Based in " + K.company.location + ", serving " + K.company.markets + "\n\n🎯 " + K.company.differentiator + "\n\n💡 " + K.company.philosophy + cta;
-      
-      // Objection handling - sophisticated responses
-      case "objection_expensive":
-        return K.objections.tooExpensive.response + "\n\n" + K.objections.tooExpensive.followUp + softCta;
-      
-      case "objection_unsure":
-      case "objection_think":
-        return K.objections.needToThink.response + "\n\n" + K.objections.needToThink.urgency + "\n\n📅 No commitment call to see exactly what we'd build: " + CAL_LINK;
-      
-      case "objection_have_someone":
-        return K.objections.haveSomeone.response + "\n\n" + K.objections.haveSomeone.reframe + softCta;
-      
-      case "objection_tried_chatbots":
-        return K.objections.triedChatbots.response + "\n\n" + K.objections.triedChatbots.question;
-      
-      case "objection_too_small":
-        return K.objections.tooSmall.response + "\n\n" + K.objections.tooSmall.math + cta;
-      
-      case "objection_not_ready":
-        return K.objections.notReady.response + "\n\n" + K.objections.notReady.alternatives;
-      
-      case "objection_trust":
-        return K.objections.dontTrustAI.response + "\n\n" + K.objections.dontTrustAI.proof + cta;
-      
-      case "objection_partner":
-        return K.objections.partnerDecision.response + "\n\n" + K.objections.partnerDecision.alternative;
-      
-      case "objection_proof":
-        var industryCS = newContext.industry ? K.industries[newContext.industry] : K.industries.hospitality;
-        return K.objections.seenResultsFirst.response + "\n\n**Case Study:** " + industryCS.caseStudy + cta;
-      
-      case "objection_cheaper":
-        return K.objections.cheaper.response + "\n\n" + K.objections.cheaper.value + cta;
-      
-      case "comparison":
-      case "differentiator":
-        return "**What Makes Us Different**\n\n🏢 **vs Agencies:** " + K.comparisons.vsAgencies + "\n\n🤖 **vs Chatbots:** " + K.comparisons.vsChatbots + "\n\n👥 **vs Hiring Staff:** " + K.comparisons.vsHiring + "\n\n🌎 **vs Competitors:** " + K.comparisons.vsCompetitors + cta;
-      
-      case "trust":
-        return "**Zero Risk to Get Started**\n\n🤝 " + K.trust.noLockIn + "\n\n💯 " + K.trust.risk + "\n\n✓ " + K.trust.transparency + "\n\n🛡️ " + K.trust.support + "\n\nStill have concerns? Ask me anything — I'd rather address them now than have you wonder later." + cta;
-      
-      case "after_hours":
-        return "**After-Hours Coverage** — Where the money is!\n\n" + K.stats.afterHours + " — that's more than HALF your potential revenue happening when you're asleep or off the clock.\n\nOur AI works 24/7/365. No sick days, no vacations, no complaining.\n\nThat European tourist at 2am? The business owner browsing on Sunday? They become YOUR customers instead of going to whoever responds first." + cta;
-      
-      case "human_handoff":
-        return "**Human Handoff** — AI + Human, not AI vs Human\n\nOur system knows when to bring in a real person:\n• Complex negotiations or special requests\n• VIP guests needing personal attention\n• Complaints requiring empathy and judgment\n• Anytime the customer specifically asks\n• Situations the AI is uncertain about\n\nThe AI handles the 80% that's routine so your team focuses on the 20% that needs human touch. You're notified instantly when escalation happens." + cta;
-      
-      case "customization":
-        return "**Full Customization** — Your AI, Your Brand\n\nEvery system is tailored:\n• Voice and tone matching YOUR brand personality\n• YOUR specific FAQs, policies, and procedures\n• YOUR booking rules, availability, and pricing\n• YOUR upsells and cross-sells\n• YOUR escalation preferences\n\nIt sounds like you because we train it on how you actually communicate. We don't hand you a generic template." + cta;
-      
-      case "security":
-        return "**Security & Privacy**\n\nWe take data seriously:\n• Official WhatsApp Business API (fully compliant)\n• Encrypted data in transit and at rest\n• No data shared with third parties\n• You own your customer data\n• Regular security audits\n• GDPR-conscious practices\n\nYour customer data stays your customer data. Period." + cta;
-      
-      case "support":
-        return "**Ongoing Support & Optimization**\n\nWhat you get:\n• Dedicated onboarding and training\n• Continuous AI improvement based on real conversations\n• Priority support for any issues\n• Monthly performance reviews\n• Updates and new features included\n• Direct WhatsApp access to our team\n\nYou're not buying software and being left alone. Your success is our success — we're partners." + cta;
-      
-      case "referral":
-        var ref = K.referral;
-        return "**" + ref.program + "** 🤝\n\nPerfect for: " + ref.audience + "\n\n💰 **Commission:** " + ref.commission + "\n\n✅ **Your effort:** " + ref.effort + "\n\n🎯 **Why it works:** " + ref.fit + "\n\nInterested in becoming a referral partner? Let me know and I'll connect you with our partnership team.";
-      
-      case "voice_features":
-        return "**Voice & Audio Capabilities**\n\nOur AI handles:\n• Voice notes — understands what people say and responds appropriately\n• Can send voice responses if preferred\n• Transcription of audio messages\n• Call-to-action for phone calls when needed\n\nIn Latin America, many people prefer voice notes over typing. We support that fully." + cta;
-      
-      case "analytics":
-        return "**Analytics & Reporting Dashboard**\n\nSee everything in real-time:\n• Every conversation and its outcome\n• Response times and resolution rates\n• Booking conversion metrics\n• Revenue attribution\n• Busiest hours and days\n• Customer sentiment trends\n• Team performance (if applicable)\n\nYou'll know exactly what's working and what needs attention. Data-driven optimization." + cta;
-      
-      case "thanks":
-        return "Happy to help! 😊\n\nIf you want to explore what this could look like for your specific business, I'm here.\n\nOr jump straight to a strategy call: " + CAL_LINK + "\n\nAnything else on your mind?";
-      
-      case "not_interested":
-        return "No problem at all! 👋\n\nIf your situation changes or you want to explore this later, we're here. Just reach out anytime.\n\nGood luck with your business! 🙌";
-      
-      default:
-        // Smart fallback based on conversation stage
-        if (newContext.questionsAsked <= 2) {
-          return "I want to help with what matters most to you.\n\nAre you:\n🏨 Running a hotel or hospitality business?\n🍽️ In restaurants or nightlife?\n⛵ Operating tours or experiences?\n💼 Offering professional services?\n🔧 In home services or HVAC?\n\nOr just tell me what challenge you're facing — I'll show you how we can help!";
-        } else if (newContext.questionsAsked <= 5) {
-          return "Let me make sure I'm addressing what you need.\n\nI can tell you about:\n• Exactly what our AI does and how it works\n• Real results and ROI for your industry\n• The process and timeline\n• Why we're different from generic chatbots\n• Pricing and how it pays for itself\n\nWhat would be most useful?" + softCta;
-        } else {
-          return "Sounds like you've got a good sense of what we do.\n\nThe best next step is usually a 15-minute strategy call where we can:\n• Map out YOUR specific situation\n• Show you exactly what we'd build\n• Give you realistic numbers\n\nNo pressure — if we're not a fit, I'll tell you.\n\n📅 " + CAL_LINK + "\n\nOr ask me anything else!";
-        }
-    }
-  }
 
   function handleSend() {
     if (!input.trim()) return;
@@ -705,35 +1550,17 @@ function SofiaChat(props) {
     setMessages(function(prev) { return prev.concat([{ role: "user", text: userText }]); });
     setInput("");
     setIsTyping(true);
-    var response = sofiaRespond(userText, context);
-    var delay = Math.min(800 + response.length * 1.5, 2800);
     setTimeout(function() {
-      setMessages(function(prev) { return prev.concat([{ role: "sofia", text: response }]); });
+      setMessages(function(prev) { return prev.concat([{ role: "sofia", text: "Thanks for your message! I'd love to help. For the most personalized assistance, let's book a quick call:\n\n📅 " + CAL_LINK + "\n\nOr message us directly on WhatsApp: " + WHATSAPP }]); });
       setIsTyping(false);
-    }, delay);
+    }, 1500);
   }
 
   function handleKeyPress(e) {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
   }
 
-  function handleQuickAction(action) {
-    setMessages(function(prev) { return prev.concat([{ role: "user", text: action }]); });
-    setIsTyping(true);
-    var response = sofiaRespond(action, context);
-    setTimeout(function() {
-      setMessages(function(prev) { return prev.concat([{ role: "sofia", text: response }]); });
-      setIsTyping(false);
-    }, 1200);
-  }
-
   if (!isOpen) return null;
-
-  var quickActions = messages.length <= 2 ? 
-    ["What do you do?", "Show me results", "How much does it cost?", "Book a call"] :
-    messages.length <= 4 ?
-    ["Tell me more", "See case studies", "How does it work?", "I'm interested"] :
-    [];
 
   return (
     React.createElement("div", { style: { position: "fixed", bottom: "100px", right: "24px", width: "400px", maxWidth: "calc(100vw - 48px)", height: "550px", background: COLORS.bgCard, borderRadius: "16px", border: "1px solid " + COLORS.border, boxShadow: "0 0 40px rgba(0,0,0,0.5)", display: "flex", flexDirection: "column", zIndex: 1000 } },
@@ -758,11 +1585,6 @@ function SofiaChat(props) {
         }),
         isTyping && React.createElement("div", { style: { alignSelf: "flex-start", padding: "12px 16px", borderRadius: "16px 16px 16px 4px", background: "rgba(255,255,255,0.05)", color: COLORS.textMuted, fontSize: "13px" } }, "Sofia is typing..."),
         React.createElement("div", { ref: messagesEndRef })
-      ),
-      quickActions.length > 0 && React.createElement("div", { style: { padding: "8px 16px", display: "flex", gap: "8px", flexWrap: "wrap", borderTop: "1px solid " + COLORS.border + "50" } },
-        quickActions.map(function(action) {
-          return React.createElement("button", { key: action, onClick: function() { handleQuickAction(action); }, style: { padding: "6px 12px", fontSize: "11px", borderRadius: "16px", border: "1px solid " + COLORS.border, background: "transparent", color: COLORS.text, cursor: "pointer", transition: "all 0.2s" } }, action);
-        })
       ),
       React.createElement("div", { style: { padding: "12px 16px", borderTop: "1px solid " + COLORS.border, display: "flex", gap: "8px", alignItems: "center" } },
         React.createElement("input", { value: input, onChange: function(e) { setInput(e.target.value); }, onKeyPress: handleKeyPress, placeholder: "Ask me anything...", style: { flex: 1, padding: "12px 16px", borderRadius: "24px", border: "1px solid " + COLORS.border, background: "rgba(255,255,255,0.05)", color: COLORS.text, outline: "none", fontSize: "13px" } }),
@@ -892,25 +1714,67 @@ function InstagramIcon() {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// MAIN APP
+// ═══════════════════════════════════════════════════════════════════════════════
+
 export default function Home() {
   var [phase, setPhase] = useState(0);
   var [selected, setSelected] = useState(null);
+  var [showAnima, setShowAnima] = useState(false);
   var [logs, setLogs] = useState([]);
   var [progress, setProgress] = useState(0);
   var [caps, setCaps] = useState([]);
   var [chatOpen, setChatOpen] = useState(false);
 
-  var interests = [{ id: "hospitality", label: "Hospitality & Hotels", icon: "🏨" }, { id: "restaurant", label: "Restaurants & Clubs", icon: "🍽️" }, { id: "tours", label: "Tours & Experiences", icon: "⛵" }, { id: "services", label: "Professional Services", icon: "💼" }];
+  // Updated interests with ANIMA as the 5th option
+  var interests = [
+    { id: "hospitality", label: "Hospitality & Hotels", icon: "🏨" },
+    { id: "restaurant", label: "Restaurants & Clubs", icon: "🍽️" },
+    { id: "tours", label: "Tours & Experiences", icon: "⛵" },
+    { id: "services", label: "Professional Services", icon: "💼" },
+    { id: "anima", label: "ANIMA Intelligence", icon: "🧠", special: true }
+  ];
+
   var capData = { hospitality: [{ title: "REVENUE RECOVERY", items: ["24/7 Booking Response", "Abandoned Inquiry Recovery", "Upsell Automation", "Multi-language Support"] }, { title: "OPERATIONS", items: ["Reservation Management", "Guest Communication", "Review Generation", "Staff Coordination"] }, { title: "INTELLIGENCE", items: ["Demand Forecasting", "Competitor Monitoring", "Sentiment Analysis", "Revenue Optimization"] }], restaurant: [{ title: "BOOKING", items: ["WhatsApp Reservations", "Wait List Management", "VIP Recognition", "Event Coordination"] }, { title: "EXPERIENCE", items: ["Menu Inquiries", "Dietary Accommodations", "Special Requests", "Loyalty Programs"] }, { title: "OPERATIONS", items: ["Table Optimization", "Staff Alerts", "Inventory Triggers", "Review Response"] }], tours: [{ title: "LEAD CAPTURE", items: ["Instant Availability", "Custom Itineraries", "Group Coordination", "Payment Links"] }, { title: "EXPERIENCE", items: ["Pre-trip Communication", "Weather Updates", "Safety Protocols", "Photo Sharing"] }, { title: "GROWTH", items: ["Review Collection", "Referral Programs", "Seasonal Campaigns", "Partner Integration"] }], services: [{ title: "ACQUISITION", items: ["Lead Qualification", "Appointment Scheduling", "Proposal Delivery", "Follow-up Sequences"] }, { title: "DELIVERY", items: ["Project Updates", "Document Sharing", "Billing Reminders", "Satisfaction Surveys"] }, { title: "RETENTION", items: ["Anniversary Outreach", "Cross-sell Triggers", "Testimonial Requests", "Referral Incentives"] }] };
   var logMessages = ["Initializing neural pathways...", "Loading behavior models...", "Calibrating response vectors...", "Mapping communication protocols...", "Activating WhatsApp integration...", "Deploying sentiment analysis...", "Configuring multi-language...", "Establishing revenue tracking...", "Optimizing conversion algorithms...", "System ready."];
 
-  useEffect(function() { var timer = setTimeout(function() { setPhase(1); }, 4000); return function() { clearTimeout(timer); }; }, []);
+  useEffect(function() { var timer = setTimeout(function() { setPhase(1); }, 6000); return function() { clearTimeout(timer); }; }, []);
   useEffect(function() { if (phase !== 2) return; var i = 0; var interval = setInterval(function() { if (i < logMessages.length) { setLogs(function(prev) { return prev.concat([logMessages[i]]); }); setProgress((i + 1) / logMessages.length * 100); i++; } else { clearInterval(interval); setTimeout(function() { setPhase(3); }, 1000); } }, 800); return function() { clearInterval(interval); }; }, [phase]);
   useEffect(function() { if (phase === 3 && selected) { setCaps(capData[selected.id] || []); var timer = setTimeout(function() { setPhase(4); }, 6000); return function() { clearTimeout(timer); }; } }, [phase, selected]);
 
-  function handleSelect(interest) { setSelected(interest); setPhase(2); setLogs([]); setProgress(0); }
-  function handleBack() { if (phase > 1 && phase < 4) { setPhase(1); setSelected(null); setLogs([]); setProgress(0); setCaps([]); } }
+  function handleSelect(interest) {
+    if (interest.id === "anima") {
+      setShowAnima(true);
+      return;
+    }
+    setSelected(interest);
+    setPhase(2);
+    setLogs([]);
+    setProgress(0);
+  }
+
+  function handleBack() {
+    if (phase > 1 && phase < 4) {
+      setPhase(1);
+      setSelected(null);
+      setLogs([]);
+      setProgress(0);
+      setCaps([]);
+    }
+  }
+
+  function handleAnimaBack() {
+    setShowAnima(false);
+    setPhase(1);
+  }
+
   function handleLogoError(e) { e.target.style.display = "none"; if (e.target.nextSibling) e.target.nextSibling.style.display = "flex"; }
+
+  // If ANIMA is selected, show the full ANIMA experience
+  if (showAnima) {
+    return React.createElement(AnimaExperience, { onBack: handleAnimaBack });
+  }
 
   return (
     React.createElement("div", { style: { minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "ui-monospace, monospace" } },
@@ -933,18 +1797,62 @@ export default function Home() {
             )
           )
         ),
-        phase === 0 && React.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" } },
-          React.createElement("div", { style: { position: "relative", width: "140px", height: "140px", marginBottom: "40px" } },
-            React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.3, animation: "ping 3s 0s infinite" } }),
-            React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.2, animation: "ping 3s 0.5s infinite" } }),
-            React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.1, animation: "ping 3s 1s infinite" } }),
-            React.createElement("div", { style: { position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "56px" } }, "⚡")
-          ),
-          React.createElement("h1", { style: { fontFamily: "system-ui", fontSize: "clamp(28px, 5vw, 44px)", fontWeight: 700, marginBottom: "16px" } },
-            React.createElement(Typewriter, { text: "THE INFRASTRUCTURE BEHIND", speed: 50, delay: 800 })
-          ),
-          React.createElement("p", { style: { fontSize: "18px", color: COLORS.textMuted } },
-            React.createElement(Typewriter, { text: "BUSINESSES THAT NEVER SLEEP", speed: 60, delay: 2800 })
+        phase === 0 && React.createElement("div", { style: { position: "fixed", inset: 0, zIndex: 100, background: COLORS.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" } },
+          React.createElement(ParticleField, { intensity: 1.2 }),
+          React.createElement("div", { style: { position: "relative", zIndex: 10 } },
+            // Glowing core with pulsing rings
+            React.createElement("div", { style: { position: "relative", width: "180px", height: "180px", marginBottom: "48px", margin: "0 auto 48px" } },
+              // Outer glow
+              React.createElement("div", { style: { position: "absolute", inset: "-40px", borderRadius: "50%", background: "radial-gradient(circle, " + COLORS.cyanGlow + " 0%, transparent 70%)", animation: "pulse 2s infinite" } }),
+              // Pulsing rings
+              React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.4, animation: "ping 2.5s 0s infinite" } }),
+              React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.3, animation: "ping 2.5s 0.4s infinite" } }),
+              React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.cyan, opacity: 0.2, animation: "ping 2.5s 0.8s infinite" } }),
+              React.createElement("div", { style: { position: "absolute", inset: 0, borderRadius: "50%", border: "2px solid " + COLORS.gold, opacity: 0.15, animation: "ping 2.5s 1.2s infinite" } }),
+              // Inner core
+              React.createElement("div", { style: { position: "absolute", inset: "30px", borderRadius: "50%", background: "linear-gradient(135deg, " + COLORS.cyan + "30, " + COLORS.gold + "20)", border: "1px solid " + COLORS.border } }),
+              // Icon
+              React.createElement("div", { style: { position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "64px", filter: "drop-shadow(0 0 20px " + COLORS.cyan + ")" } }, "⚡")
+            ),
+            // Logo text
+            React.createElement("div", { style: { marginBottom: "24px", opacity: 0, animation: "fadeIn 0.8s 0.5s forwards" } },
+              React.createElement("div", { style: { fontSize: "12px", letterSpacing: "0.3em", color: COLORS.gold, marginBottom: "8px" } }, "MACHINEMIND"),
+              React.createElement("div", { style: { fontSize: "10px", letterSpacing: "0.2em", color: COLORS.textMuted } }, "INITIALIZING SYSTEMS")
+            ),
+            // Main headline
+            React.createElement("h1", { style: { fontFamily: "system-ui", fontSize: "clamp(32px, 6vw, 52px)", fontWeight: 800, marginBottom: "16px", letterSpacing: "-1px" } },
+              React.createElement(Typewriter, { text: "THE INFRASTRUCTURE BEHIND", speed: 45, delay: 1000 })
+            ),
+            React.createElement("p", { style: { fontSize: "clamp(18px, 3vw, 24px)", color: COLORS.textMuted, marginBottom: "48px" } },
+              React.createElement(Typewriter, { text: "BUSINESSES THAT NEVER SLEEP", speed: 50, delay: 2500 })
+            ),
+            // Loading indicator
+            React.createElement("div", { style: { opacity: 0, animation: "fadeIn 0.5s 3.5s forwards" } },
+              React.createElement("div", { style: { width: "200px", height: "3px", background: "rgba(255,255,255,0.1)", borderRadius: "2px", margin: "0 auto", overflow: "hidden" } },
+                React.createElement("div", { style: { width: "100%", height: "100%", background: "linear-gradient(90deg, " + COLORS.cyan + ", " + COLORS.gold + ")", animation: "loadingBar 2s ease-in-out" } })
+              ),
+              React.createElement("div", { style: { fontSize: "11px", color: COLORS.textMuted, marginTop: "12px", letterSpacing: "0.1em" } }, "LOADING EXPERIENCE...")
+            ),
+            // Skip button
+            React.createElement("button", {
+              onClick: function() { setPhase(1); },
+              style: {
+                position: "absolute",
+                bottom: "-80px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "transparent",
+                border: "1px solid " + COLORS.border,
+                borderRadius: "20px",
+                padding: "8px 20px",
+                color: COLORS.textMuted,
+                fontSize: "11px",
+                cursor: "pointer",
+                opacity: 0,
+                animation: "fadeIn 0.5s 5s forwards",
+                letterSpacing: "0.1em"
+              }
+            }, "SKIP INTRO →")
           )
         ),
         phase === 1 && React.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" } },
@@ -954,11 +1862,28 @@ export default function Home() {
           React.createElement("p", { style: { fontSize: "14px", color: COLORS.textMuted, marginBottom: "40px" } },
             React.createElement(Typewriter, { text: "We'll generate a custom AI infrastructure blueprint", speed: 30, delay: 1000 })
           ),
-          React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px", width: "100%", maxWidth: "700px" } },
+          React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "20px", width: "100%", maxWidth: "900px" } },
             interests.map(function(interest, i) {
-              return React.createElement("button", { key: interest.id, onClick: function() { handleSelect(interest); }, style: { background: COLORS.bgCard, border: "1px solid " + COLORS.border, borderRadius: "12px", padding: "32px 20px", cursor: "pointer", textAlign: "center", transition: "all 0.3s", opacity: 0, animation: "fadeIn 0.6s " + (1600 + i * 150) + "ms forwards" } },
+              var isAnima = interest.id === "anima";
+              return React.createElement("button", {
+                key: interest.id,
+                onClick: function() { handleSelect(interest); },
+                style: {
+                  background: isAnima ? "linear-gradient(135deg, " + COLORS.cyanDim + ", " + COLORS.goldDim + ")" : COLORS.bgCard,
+                  border: isAnima ? "2px solid " + COLORS.gold : "1px solid " + COLORS.border,
+                  borderRadius: "12px",
+                  padding: "32px 20px",
+                  cursor: "pointer",
+                  textAlign: "center",
+                  transition: "all 0.3s",
+                  opacity: 0,
+                  animation: "fadeIn 0.6s " + (1600 + i * 150) + "ms forwards",
+                  boxShadow: isAnima ? "0 0 30px " + COLORS.goldDim : "none"
+                }
+              },
                 React.createElement("div", { style: { fontSize: "44px", marginBottom: "16px" } }, interest.icon),
-                React.createElement("div", { style: { fontFamily: "system-ui", fontSize: "15px", fontWeight: 600, color: COLORS.text } }, interest.label)
+                React.createElement("div", { style: { fontFamily: "system-ui", fontSize: "15px", fontWeight: 600, color: isAnima ? COLORS.gold : COLORS.text } }, interest.label),
+                isAnima && React.createElement("div", { style: { fontSize: "10px", color: COLORS.cyan, marginTop: "8px", letterSpacing: "1px" } }, "PREMIUM TIER")
               );
             })
           ),
@@ -1018,7 +1943,7 @@ export default function Home() {
       React.createElement(SofiaChat, { isOpen: chatOpen, onClose: function() { setChatOpen(false); } }),
       React.createElement("button", { onClick: function() { setChatOpen(!chatOpen); }, style: { position: "fixed", bottom: "24px", right: "24px", width: "64px", height: "64px", borderRadius: "50%", border: "none", background: "linear-gradient(135deg, " + COLORS.cyan + ", " + COLORS.gold + ")", boxShadow: "0 0 30px " + COLORS.cyanGlow, cursor: "pointer", fontSize: "28px", zIndex: 999, transition: "transform 0.3s", transform: chatOpen ? "rotate(90deg)" : "rotate(0)", display: "flex", alignItems: "center", justifyContent: "center" } }, chatOpen ? "×" : "💬"),
       !chatOpen && React.createElement("div", { style: { position: "fixed", bottom: "76px", right: "24px", width: "12px", height: "12px", borderRadius: "50%", background: COLORS.green, border: "2px solid " + COLORS.bg, zIndex: 1000, animation: "pulse 2s infinite" } }),
-      React.createElement("style", null, "@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } @keyframes ping { 0% { transform: scale(1); opacity: 0.3; } 75%, 100% { transform: scale(1.8); opacity: 0; } } @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } } * { margin: 0; padding: 0; box-sizing: border-box; } body { background: #0d1117; } a:hover { color: #00d4ff !important; }")
+      React.createElement("style", null, "@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } @keyframes ping { 0% { transform: scale(1); opacity: 0.3; } 75%, 100% { transform: scale(1.8); opacity: 0; } } @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } } @keyframes loadingBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(0%); } } * { margin: 0; padding: 0; box-sizing: border-box; } body { background: #0d1117; } a:hover { color: #00d4ff !important; }")
     )
   );
 }
