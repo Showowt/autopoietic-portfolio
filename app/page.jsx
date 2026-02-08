@@ -858,13 +858,19 @@ export default function Home() {
     "System ready."
   ];
 
-  // Phase 0 → 1 after 6 seconds (intro complete)
+  // ═══════════════════════════════════════════════════════════════════════════
+  // PSYCHOLOGICAL TIMING - Carefully tuned for immersive experience
+  // Each phase gives visitors time to READ, FEEL, and ABSORB
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Phase 0 → 1: 12 seconds for intro (read headline, feel the atmosphere)
   useEffect(() => {
-    const timer = setTimeout(() => setPhase(1), 6000);
+    const timer = setTimeout(() => setPhase(1), 12000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Phase 2: Log generation with accelerating timing
+  // Phase 2: Log generation - slow enough to read each line
+  // Starts at 1.8s per log, accelerates to 800ms (builds anticipation)
   useEffect(() => {
     if (phase !== 2) return;
     let i = 0;
@@ -873,20 +879,22 @@ export default function Home() {
         setLogs(prev => [...prev, logMessages[i]]);
         setProgress(((i + 1) / logMessages.length) * 100);
         i++;
-        // Accelerating timing: starts at 800ms, gets faster
-        setTimeout(runLog, Math.max(200, 800 - i * 60));
+        // Slow start (1800ms), gradually accelerates to 800ms
+        // This creates anticipation - starts methodical, builds momentum
+        setTimeout(runLog, Math.max(800, 1800 - i * 100));
       } else {
-        setTimeout(() => setPhase(3), 1000);
+        // Pause 2.5s after logs complete to let "System ready" sink in
+        setTimeout(() => setPhase(3), 2500);
       }
     };
     runLog();
   }, [phase]);
 
-  // Phase 3: Show capabilities and move to phase 4
+  // Phase 3: Blueprint reveal - 10 seconds to absorb all capabilities
   useEffect(() => {
     if (phase === 3 && selected) {
       setCaps(CAP_DATA[selected.id] || []);
-      const timer = setTimeout(() => setPhase(4), 5000);
+      const timer = setTimeout(() => setPhase(4), 10000);
       return () => clearTimeout(timer);
     }
   }, [phase, selected]);
@@ -958,29 +966,29 @@ export default function Home() {
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '64px', filter: `drop-shadow(0 0 20px ${COLORS.cyan})` }}>⚡</div>
               </div>
 
-              {/* Logo Text */}
-              <div style={{ marginBottom: '24px', opacity: 0, animation: 'fadeIn 0.8s 0.5s forwards' }}>
+              {/* Logo Text - appears at 1s */}
+              <div style={{ marginBottom: '24px', opacity: 0, animation: 'fadeIn 1s 1s forwards' }}>
                 <div style={{ fontSize: '12px', letterSpacing: '0.3em', color: COLORS.gold, marginBottom: '8px' }}>{T.brand}</div>
                 <div style={{ fontSize: '10px', letterSpacing: '0.2em', color: COLORS.textMuted }}>{T.initializing}</div>
               </div>
 
-              {/* Main Headlines */}
+              {/* Main Headlines - slower typewriter for reading */}
               <h1 style={{ fontSize: 'clamp(32px, 6vw, 52px)', fontWeight: 800, marginBottom: '16px', letterSpacing: '-1px' }}>
-                <Typewriter text={T.introHeadline} speed={45} delay={1000} />
+                <Typewriter text={T.introHeadline} speed={70} delay={2000} />
               </h1>
               <p style={{ fontSize: 'clamp(18px, 3vw, 24px)', color: COLORS.textMuted, marginBottom: '48px' }}>
-                <Typewriter text={T.introSubheadline} speed={50} delay={2500} />
+                <Typewriter text={T.introSubheadline} speed={80} delay={5000} />
               </p>
 
-              {/* Loading Bar */}
-              <div style={{ opacity: 0, animation: 'fadeIn 0.5s 3.5s forwards' }}>
+              {/* Loading Bar - appears at 7.5s */}
+              <div style={{ opacity: 0, animation: 'fadeIn 0.8s 7.5s forwards' }}>
                 <div style={{ width: '200px', height: '3px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', margin: '0 auto', overflow: 'hidden' }}>
-                  <div style={{ width: '100%', height: '100%', background: `linear-gradient(90deg, ${COLORS.cyan}, ${COLORS.gold})`, animation: 'loadingBar 2s ease-in-out' }} />
+                  <div style={{ width: '100%', height: '100%', background: `linear-gradient(90deg, ${COLORS.cyan}, ${COLORS.gold})`, animation: 'loadingBar 3s ease-in-out' }} />
                 </div>
                 <div style={{ fontSize: '11px', color: COLORS.textMuted, marginTop: '12px', letterSpacing: '0.1em' }}>{T.loading}</div>
               </div>
 
-              {/* Skip Button */}
+              {/* Skip Button - appears at 4s so users can skip if they want */}
               <button
                 onClick={() => setPhase(1)}
                 style={{
@@ -993,7 +1001,7 @@ export default function Home() {
                   fontSize: '11px',
                   cursor: 'pointer',
                   opacity: 0,
-                  animation: 'fadeIn 0.5s 5s forwards',
+                  animation: 'fadeIn 0.5s 4s forwards',
                   letterSpacing: '0.1em'
                 }}
               >{T.skipIntro}</button>
@@ -1007,10 +1015,10 @@ export default function Home() {
         {phase === 1 && (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
             <h2 style={{ fontSize: '14px', letterSpacing: '0.2em', color: COLORS.cyan, marginBottom: '16px' }}>
-              <Typewriter text={T.selectVertical} speed={40} />
+              <Typewriter text={T.selectVertical} speed={60} />
             </h2>
             <p style={{ fontSize: '14px', color: COLORS.textMuted, marginBottom: '40px' }}>
-              <Typewriter text={T.selectSubtitle} speed={30} delay={1000} />
+              <Typewriter text={T.selectSubtitle} speed={45} delay={1500} />
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '20px', width: '100%', maxWidth: '900px' }}>
@@ -1078,6 +1086,7 @@ export default function Home() {
               {selected.label} {T.aiInfrastructure}
             </h2>
 
+            {/* Capability cards reveal one by one - 0.4s apart for dramatic effect */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', width: '100%', maxWidth: '700px' }}>
               {caps.map((cap, i) => (
                 <div
@@ -1089,7 +1098,7 @@ export default function Home() {
                     padding: '20px',
                     textAlign: 'center',
                     opacity: 0,
-                    animation: `fadeIn 0.5s ${i * 0.1}s forwards`
+                    animation: `fadeIn 0.6s ${1 + i * 0.4}s forwards`
                   }}
                 >
                   <div style={{ fontSize: '28px', marginBottom: '8px' }}>{cap.icon}</div>
@@ -1107,14 +1116,16 @@ export default function Home() {
         {phase === 4 && selected && (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', textAlign: 'center' }}>
             <div style={{ fontSize: '48px', marginBottom: '24px', animation: 'pulse 2s infinite' }}>✨</div>
+            {/* Slower typewriter - let visitors read and feel the moment */}
             <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 700, marginBottom: '16px' }}>
-              <Typewriter text={T.infrastructureReady} speed={45} />
+              <Typewriter text={T.infrastructureReady} speed={70} />
             </h2>
             <p style={{ fontSize: '16px', color: COLORS.textMuted, marginBottom: '40px', maxWidth: '500px' }}>
-              <Typewriter text={T.finalSubtitle} speed={30} delay={2000} />
+              <Typewriter text={T.finalSubtitle} speed={50} delay={3000} />
             </p>
 
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', opacity: 0, animation: 'fadeIn 0.5s 3s forwards' }}>
+            {/* Buttons appear after text is fully typed - 6s delay */}
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', opacity: 0, animation: 'fadeIn 0.8s 6s forwards' }}>
               <a
                 href={LINKS.cal}
                 target="_blank"
@@ -1144,7 +1155,7 @@ export default function Home() {
               >{T.exploreAnother}</button>
             </div>
 
-            <div style={{ marginTop: '32px', fontSize: '12px', color: COLORS.textMuted, opacity: 0, animation: 'fadeIn 0.5s 3.5s forwards' }}>
+            <div style={{ marginTop: '32px', fontSize: '12px', color: COLORS.textMuted, opacity: 0, animation: 'fadeIn 0.5s 7s forwards' }}>
               {T.noCommitment}
             </div>
           </div>
