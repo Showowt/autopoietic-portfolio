@@ -66,7 +66,79 @@ var TEXT_EN = {
   noCommitment: "15-min call • No commitment • See what we'll build",
   back: "← Back",
   online: "ONLINE",
-  ready: "READY"
+  ready: "READY",
+  // ANIMA Section
+  animaEdition: "ANIMA EDITION",
+  animaBadge: "ANIMA INTELLIGENT SYSTEMS",
+  animaHeroHeadline: "We don't install chatbots. We install nervous systems.",
+  animaHeroSubtitle: "ANIMA transforms your hospitality business into a 24/7 revenue-capturing, customer-learning, competitor-outsmarting operation.",
+  animaHeroHighlight: "Every deployment makes every other deployment smarter.",
+  animaCta1: "Get Your Diagnostic →",
+  animaCta2: "See Sample Report",
+  animaNavWhy: "Why ANIMA",
+  animaNavPricing: "Pricing",
+  animaNavMoat: "Our Moat",
+  animaNavIntelligence: "Intelligence",
+  animaNavBook: "Book Strategy Call",
+  animaStatsResponse: "Response Time",
+  animaStatsConversion: "Conversion Rate",
+  animaStatsAfterHours: "After-Hours Captures",
+  animaStatsRoi: "ROI in 60 Days",
+  animaProblemLabel: "THE PROBLEM",
+  animaProblemHeadline1: "Your competition is responding in",
+  animaProblemHeadline2: "4+ hours",
+  animaProblemHeadline3: "78% of customers book with whoever responds first.",
+  animaCompetitorsLabel: "WHAT COMPETITORS INSTALL",
+  animaCompetitorsTitle: "A Chatbot",
+  animaWeInstallLabel: "WHAT WE INSTALL",
+  animaWeInstallTitle: "A Nervous System",
+  animaTiersLabel: "CHOOSE YOUR SYSTEM",
+  animaTiersHeadline: "Three Levels of",
+  animaTiersHighlight: "Intelligence",
+  animaTiersSubtitle: "Start where you are. Upgrade when you're ready. Each tier builds on the last.",
+  animaOneTime: "one-time",
+  animaSetup: "setup +",
+  animaMonth: "/month",
+  animaIdealFor: "IDEAL FOR",
+  animaGetStarted: "Get Started with ANIMA →",
+  animaLearnMore: "Learn More",
+  animaMoatLabel: "THE UNCOPYABLE ADVANTAGE",
+  animaMoatHeadline: "Three Things",
+  animaMoatHighlight: "No One Can Replicate",
+  animaMoatSubtitle: "These aren't features. They're structural advantages that compound over time.",
+  animaLockIn: "THE LOCK-IN EFFECT",
+  animaIntelLabel: "WEEKLY INTELLIGENCE REPORT",
+  animaIntelHeadline: "This Is What You've Been",
+  animaIntelHighlight: "Missing",
+  animaIntelSubtitle: "Every Monday. Delivered to your WhatsApp. Insights that change how you run your business.",
+  animaReportTitle: "ANIMA — Weekly Summary",
+  animaImportant: "🔥 MOST IMPORTANT THIS WEEK",
+  animaInsightsLabel: "💡 KEY INSIGHTS",
+  animaActionLabel: "🎯 ACTION OF THE WEEK",
+  animaStartIntel: "Start Getting Intelligence →",
+  animaRoiLabel: "ROI CALCULATOR",
+  animaRoiHeadline: "Calculate Your",
+  animaRoiHighlight: "Revenue Recovery",
+  animaInquiries: "Inquiries per week",
+  animaTicket: "Average ticket",
+  animaNoShowRate: "Current no-show rate",
+  animaRecovered: "Recovered bookings/month",
+  animaAvoided: "Avoided no-shows/month",
+  animaMonthlyValue: "MONTHLY VALUE RECOVERED",
+  animaRoiResult: "ROI:",
+  animaCtaHeadline: "Your Business Deserves a",
+  animaCtaHighlight: "Nervous System",
+  animaCtaSubtitle1: "Stop responding. Start understanding.",
+  animaCtaSubtitle2: "The free diagnostic alone will show you things about your business you never knew.",
+  animaCtaBook: "Book Your Free Diagnostic →",
+  animaCtaWhatsApp: "💬 Message Us on WhatsApp",
+  animaCtaNote: "No commitment required. No credit card. Just 45 minutes that will change how you see your business.",
+  animaFooterVersion: "v5.0 ANIMA EDITION | Built in Cartagena 🇨🇴",
+  animaFooterBook: "Book a Call",
+  animaFooterCopyright: "© 2026 MachineMind. ANIMA Intelligent Systems.",
+  // Problem section lists
+  competitorList: ["Static FAQ responses", "No learning capability", "No intelligence reports", "Generic voice and tone", "No network learning", "One-time setup, zero evolution", "Race to the bottom on price"],
+  nervousSystemList: ["Learns from every interaction", "Weekly intelligence reports", "Business blind spot detection", "Your voice, your brand, your policies", "Network learning across all deployments", "Gets smarter every week", "Premium positioning, premium results"]
 };
 
 var TEXT_ES = {
@@ -95,7 +167,79 @@ var TEXT_ES = {
   noCommitment: "Llamada de 15 min • Sin compromiso • Ve lo que construiremos",
   back: "← Volver",
   online: "EN LÍNEA",
-  ready: "LISTO"
+  ready: "LISTO",
+  // ANIMA Section
+  animaEdition: "EDICIÓN ANIMA",
+  animaBadge: "SISTEMAS INTELIGENTES ANIMA",
+  animaHeroHeadline: "No instalamos chatbots. Instalamos sistemas nerviosos.",
+  animaHeroSubtitle: "ANIMA transforma tu negocio de hospitalidad en una operación 24/7 que captura ingresos, aprende de clientes y supera a la competencia.",
+  animaHeroHighlight: "Cada implementación hace que todas las demás sean más inteligentes.",
+  animaCta1: "Obtén Tu Diagnóstico →",
+  animaCta2: "Ver Reporte de Ejemplo",
+  animaNavWhy: "Por Qué ANIMA",
+  animaNavPricing: "Precios",
+  animaNavMoat: "Nuestra Ventaja",
+  animaNavIntelligence: "Inteligencia",
+  animaNavBook: "Agendar Llamada",
+  animaStatsResponse: "Tiempo de Respuesta",
+  animaStatsConversion: "Tasa de Conversión",
+  animaStatsAfterHours: "Capturas Fuera de Horario",
+  animaStatsRoi: "ROI en 60 Días",
+  animaProblemLabel: "EL PROBLEMA",
+  animaProblemHeadline1: "Tu competencia responde en",
+  animaProblemHeadline2: "4+ horas",
+  animaProblemHeadline3: "78% de los clientes reservan con quien responde primero.",
+  animaCompetitorsLabel: "LO QUE INSTALAN LOS COMPETIDORES",
+  animaCompetitorsTitle: "Un Chatbot",
+  animaWeInstallLabel: "LO QUE NOSOTROS INSTALAMOS",
+  animaWeInstallTitle: "Un Sistema Nervioso",
+  animaTiersLabel: "ELIGE TU SISTEMA",
+  animaTiersHeadline: "Tres Niveles de",
+  animaTiersHighlight: "Inteligencia",
+  animaTiersSubtitle: "Empieza donde estés. Mejora cuando estés listo. Cada nivel construye sobre el anterior.",
+  animaOneTime: "único",
+  animaSetup: "setup +",
+  animaMonth: "/mes",
+  animaIdealFor: "IDEAL PARA",
+  animaGetStarted: "Comenzar con ANIMA →",
+  animaLearnMore: "Saber Más",
+  animaMoatLabel: "LA VENTAJA INCOPIABLE",
+  animaMoatHeadline: "Tres Cosas Que",
+  animaMoatHighlight: "Nadie Puede Replicar",
+  animaMoatSubtitle: "Estas no son características. Son ventajas estructurales que se acumulan con el tiempo.",
+  animaLockIn: "EL EFECTO DE RETENCIÓN",
+  animaIntelLabel: "REPORTE DE INTELIGENCIA SEMANAL",
+  animaIntelHeadline: "Esto Es Lo Que Te Has Estado",
+  animaIntelHighlight: "Perdiendo",
+  animaIntelSubtitle: "Cada lunes. Entregado a tu WhatsApp. Insights que cambian cómo manejas tu negocio.",
+  animaReportTitle: "ANIMA — Resumen Semanal",
+  animaImportant: "🔥 LO MÁS IMPORTANTE ESTA SEMANA",
+  animaInsightsLabel: "💡 INSIGHTS CLAVE",
+  animaActionLabel: "🎯 ACCIÓN DE LA SEMANA",
+  animaStartIntel: "Empieza a Recibir Inteligencia →",
+  animaRoiLabel: "CALCULADORA DE ROI",
+  animaRoiHeadline: "Calcula Tu",
+  animaRoiHighlight: "Recuperación de Ingresos",
+  animaInquiries: "Consultas por semana",
+  animaTicket: "Ticket promedio",
+  animaNoShowRate: "Tasa actual de no-shows",
+  animaRecovered: "Reservas recuperadas/mes",
+  animaAvoided: "No-shows evitados/mes",
+  animaMonthlyValue: "VALOR MENSUAL RECUPERADO",
+  animaRoiResult: "ROI:",
+  animaCtaHeadline: "Tu Negocio Merece un",
+  animaCtaHighlight: "Sistema Nervioso",
+  animaCtaSubtitle1: "Deja de responder. Empieza a entender.",
+  animaCtaSubtitle2: "El diagnóstico gratuito solo te mostrará cosas de tu negocio que nunca supiste.",
+  animaCtaBook: "Agenda Tu Diagnóstico Gratis →",
+  animaCtaWhatsApp: "💬 Escríbenos en WhatsApp",
+  animaCtaNote: "Sin compromiso requerido. Sin tarjeta de crédito. Solo 45 minutos que cambiarán cómo ves tu negocio.",
+  animaFooterVersion: "v5.0 EDICIÓN ANIMA | Hecho en Cartagena 🇨🇴",
+  animaFooterBook: "Agendar Llamada",
+  animaFooterCopyright: "© 2026 MachineMind. Sistemas Inteligentes ANIMA.",
+  // Problem section lists
+  competitorList: ["Respuestas FAQ estáticas", "Sin capacidad de aprendizaje", "Sin informes de inteligencia", "Voz y tono genéricos", "Sin aprendizaje de red", "Configuración única, cero evolución", "Carrera hacia el fondo en precio"],
+  nervousSystemList: ["Aprende de cada interacción", "Informes de inteligencia semanales", "Detección de puntos ciegos del negocio", "Tu voz, tu marca, tus políticas", "Aprendizaje de red en todas las implementaciones", "Se vuelve más inteligente cada semana", "Posicionamiento premium, resultados premium"]
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -434,7 +578,7 @@ function AnimaNeuralBackground() {
 // ANIMA NAVIGATION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaNavigation({ onBack }) {
+function AnimaNavigation({ onBack, T, lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -477,7 +621,7 @@ function AnimaNavigation({ onBack }) {
               fontFamily: 'system-ui'
             }}
           >
-            ← Back
+            {T.back}
           </button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
@@ -494,17 +638,17 @@ function AnimaNavigation({ onBack }) {
             }}>M</div>
             <div>
               <div style={{ fontWeight: 700, fontSize: '16px', letterSpacing: '-0.5px' }}>MACHINEMIND</div>
-              <div style={{ fontSize: '10px', color: COLORS.textMuted, letterSpacing: '2px' }}>ANIMA EDITION</div>
+              <div style={{ fontSize: '10px', color: COLORS.textMuted, letterSpacing: '2px' }}>{T.animaEdition}</div>
             </div>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <a href="#problem" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Why ANIMA</a>
-          <a href="#tiers" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Pricing</a>
-          <a href="#moat" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Our Moat</a>
-          <a href="#intelligence" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>Intelligence</a>
-
+          <a href="#problem" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>{T.animaNavWhy}</a>
+          <a href="#tiers" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>{T.animaNavPricing}</a>
+          <a href="#moat" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>{T.animaNavMoat}</a>
+          <a href="#intelligence" style={{ color: COLORS.textMuted, textDecoration: 'none', fontSize: '14px', fontWeight: 500 }}>{T.animaNavIntelligence}</a>
+          <LanguageToggle lang={lang} setLang={setLang} />
           <a
             href={CAL_LINK}
             target="_blank"
@@ -520,7 +664,7 @@ function AnimaNavigation({ onBack }) {
               textDecoration: 'none'
             }}
           >
-            Book Strategy Call
+            {T.animaNavBook}
           </a>
         </div>
       </div>
@@ -532,12 +676,13 @@ function AnimaNavigation({ onBack }) {
 // ANIMA HERO SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaHeroSection() {
+function AnimaHeroSection({ T }) {
   const [typedText, setTypedText] = useState('');
-  const fullText = "We don't install chatbots. We install nervous systems.";
+  const fullText = T.animaHeroHeadline;
 
   useEffect(() => {
     let index = 0;
+    setTypedText('');
     const timer = setInterval(() => {
       if (index <= fullText.length) {
         setTypedText(fullText.slice(0, index));
@@ -547,7 +692,7 @@ function AnimaHeroSection() {
       }
     }, 50);
     return () => clearInterval(timer);
-  }, []);
+  }, [fullText]);
 
   return (
     <section style={{
@@ -579,7 +724,7 @@ function AnimaHeroSection() {
           animation: 'animaPulse 2s infinite'
         }} />
         <span style={{ fontSize: '12px', fontWeight: 600, color: COLORS.cyan, letterSpacing: '2px' }}>
-          ANIMA INTELLIGENT SYSTEMS
+          {T.animaBadge}
         </span>
       </div>
 
@@ -611,10 +756,9 @@ function AnimaHeroSection() {
         marginBottom: '48px',
         animation: 'animaFadeIn 0.8s ease-out 0.5s both'
       }}>
-        ANIMA transforms your hospitality business into a 24/7 revenue-capturing,
-        customer-learning, competitor-outsmarting operation.
+        {T.animaHeroSubtitle}
         <br /><br />
-        <span style={{ color: COLORS.gold }}>Every deployment makes every other deployment smarter.</span>
+        <span style={{ color: COLORS.gold }}>{T.animaHeroHighlight}</span>
       </p>
 
       <div style={{
@@ -640,7 +784,7 @@ function AnimaHeroSection() {
             boxShadow: `0 0 30px ${COLORS.cyanGlow}`
           }}
         >
-          Get Your Diagnostic →
+          {T.animaCta1}
         </a>
         <a
           href="#intelligence"
@@ -655,7 +799,7 @@ function AnimaHeroSection() {
             textDecoration: 'none'
           }}
         >
-          See Sample Report
+          {T.animaCta2}
         </a>
       </div>
 
@@ -668,10 +812,10 @@ function AnimaHeroSection() {
         animation: 'animaFadeIn 0.8s ease-out 1s both'
       }}>
         {[
-          { value: '<3s', label: 'Response Time' },
-          { value: '85-95%', label: 'Conversion Rate' },
-          { value: '60%', label: 'After-Hours Captures' },
-          { value: '3x', label: 'ROI in 60 Days' }
+          { value: '<3s', label: T.animaStatsResponse },
+          { value: '85-95%', label: T.animaStatsConversion },
+          { value: '60%', label: T.animaStatsAfterHours },
+          { value: '3x', label: T.animaStatsRoi }
         ].map((stat, i) => (
           <div key={i} style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.cyan }}>{stat.value}</div>
@@ -713,7 +857,7 @@ function AnimaHeroSection() {
 // ANIMA PROBLEM SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaProblemSection() {
+function AnimaProblemSection({ T }) {
   return (
     <section id="problem" style={{
       padding: '120px 24px',
@@ -727,16 +871,16 @@ function AnimaProblemSection() {
             letterSpacing: '3px',
             marginBottom: '16px',
             fontWeight: 600
-          }}>THE PROBLEM</div>
+          }}>{T.animaProblemLabel}</div>
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 800,
             lineHeight: 1.2,
             letterSpacing: '-1px'
           }}>
-            Your competition is responding in <span style={{ color: COLORS.danger }}>4+ hours</span>.
+            {T.animaProblemHeadline1} <span style={{ color: COLORS.danger }}>{T.animaProblemHeadline2}</span>.
             <br />
-            <span style={{ color: COLORS.cyan }}>78% of customers book with whoever responds first.</span>
+            <span style={{ color: COLORS.cyan }}>{T.animaProblemHeadline3}</span>
           </h2>
         </div>
 
@@ -757,20 +901,12 @@ function AnimaProblemSection() {
               letterSpacing: '2px',
               marginBottom: '24px',
               fontWeight: 600
-            }}>WHAT COMPETITORS INSTALL</div>
+            }}>{T.animaCompetitorsLabel}</div>
             <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', color: COLORS.text }}>
-              A Chatbot
+              {T.animaCompetitorsTitle}
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {[
-                'Static FAQ responses',
-                'No learning capability',
-                'No intelligence reports',
-                'Generic voice and tone',
-                'No network learning',
-                'One-time setup, zero evolution',
-                'Race to the bottom on price'
-              ].map((item, i) => (
+              {T.competitorList.map((item, i) => (
                 <li key={i} style={{
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -798,20 +934,12 @@ function AnimaProblemSection() {
               letterSpacing: '2px',
               marginBottom: '24px',
               fontWeight: 600
-            }}>WHAT WE INSTALL</div>
+            }}>{T.animaWeInstallLabel}</div>
             <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px' }}>
-              <span className="anima-gradient-text">A Nervous System</span>
+              <span className="anima-gradient-text">{T.animaWeInstallTitle}</span>
             </h3>
             <ul style={{ listStyle: 'none', padding: 0 }}>
-              {[
-                'Learns from every interaction',
-                'Weekly intelligence reports',
-                'Business blind spot detection',
-                'Your voice, your brand, your policies',
-                'Network learning across all deployments',
-                'Gets smarter every week',
-                'Premium positioning, premium results'
-              ].map((item, i) => (
+              {T.nervousSystemList.map((item, i) => (
                 <li key={i} style={{
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -835,7 +963,7 @@ function AnimaProblemSection() {
 // ANIMA TIERS SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaTiersSection() {
+function AnimaTiersSection({ T }) {
   const tiers = [
     {
       ...ANIMA_KNOWLEDGE.tiers.nerve,
@@ -871,7 +999,7 @@ function AnimaTiersSection() {
             letterSpacing: '3px',
             marginBottom: '16px',
             fontWeight: 600
-          }}>CHOOSE YOUR SYSTEM</div>
+          }}>{T.animaTiersLabel}</div>
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 800,
@@ -879,10 +1007,10 @@ function AnimaTiersSection() {
             letterSpacing: '-1px',
             marginBottom: '16px'
           }}>
-            Three Levels of <span className="anima-gradient-text">Intelligence</span>
+            {T.animaTiersHeadline} <span className="anima-gradient-text">{T.animaTiersHighlight}</span>
           </h2>
           <p style={{ color: COLORS.textMuted, fontSize: '18px', maxWidth: '600px', margin: '0 auto' }}>
-            Start where you are. Upgrade when you're ready. Each tier builds on the last.
+            {T.animaTiersSubtitle}
           </p>
         </div>
 
@@ -924,15 +1052,15 @@ function AnimaTiersSection() {
                   {tier.priceType === 'one-time' ? (
                     <div>
                       <span style={{ fontSize: '42px', fontWeight: 800, color: COLORS.text }}>{tier.price}</span>
-                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>one-time</span>
+                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>{T.animaOneTime}</span>
                     </div>
                   ) : (
                     <div>
                       <div style={{ marginBottom: '8px' }}>
-                        <span style={{ fontSize: '16px', color: COLORS.textMuted }}>{tier.setup} setup + </span>
+                        <span style={{ fontSize: '16px', color: COLORS.textMuted }}>{tier.setup} {T.animaSetup}</span>
                       </div>
                       <span style={{ fontSize: '42px', fontWeight: 800, color: COLORS.text }}>{tier.monthly}</span>
-                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>/month</span>
+                      <span style={{ color: COLORS.textMuted, marginLeft: '8px' }}>{T.animaMonth}</span>
                     </div>
                   )}
                 </div>
@@ -966,7 +1094,7 @@ function AnimaTiersSection() {
                   borderRadius: '12px',
                   marginBottom: '24px'
                 }}>
-                  <div style={{ fontSize: '11px', color: COLORS.textMuted, marginBottom: '4px', letterSpacing: '1px' }}>IDEAL FOR</div>
+                  <div style={{ fontSize: '11px', color: COLORS.textMuted, marginBottom: '4px', letterSpacing: '1px' }}>{T.animaIdealFor}</div>
                   <div style={{ fontSize: '14px', color: COLORS.text }}>{tier.ideal}</div>
                 </div>
 
@@ -989,7 +1117,7 @@ function AnimaTiersSection() {
                     opacity: tier.status ? 0.6 : 1
                   }}
                 >
-                  {tier.status || (tier.featured ? 'Get Started with ANIMA →' : 'Learn More')}
+                  {tier.status || (tier.featured ? T.animaGetStarted : T.animaLearnMore)}
                 </a>
 
                 {tier.roi && (
@@ -1015,7 +1143,7 @@ function AnimaTiersSection() {
 // ANIMA MOAT SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaMoatSection() {
+function AnimaMoatSection({ T }) {
   const moats = [
     {
       ...ANIMA_KNOWLEDGE.moat.diagnostic,
@@ -1047,7 +1175,7 @@ function AnimaMoatSection() {
             letterSpacing: '3px',
             marginBottom: '16px',
             fontWeight: 600
-          }}>THE UNCOPYABLE ADVANTAGE</div>
+          }}>{T.animaMoatLabel}</div>
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 800,
@@ -1055,11 +1183,10 @@ function AnimaMoatSection() {
             letterSpacing: '-1px',
             marginBottom: '16px'
           }}>
-            Three Things <span className="anima-gradient-text">No One Can Replicate</span>
+            {T.animaMoatHeadline} <span className="anima-gradient-text">{T.animaMoatHighlight}</span>
           </h2>
           <p style={{ color: COLORS.textMuted, fontSize: '18px', maxWidth: '700px', margin: '0 auto' }}>
-            These aren't features. They're structural advantages that compound over time.
-            Once you have them, your competitors can't catch up.
+            {T.animaMoatSubtitle}
           </p>
         </div>
 
@@ -1093,7 +1220,7 @@ function AnimaMoatSection() {
                 borderRadius: '16px',
                 borderLeft: `4px solid ${moat.color}`
               }}>
-                <div style={{ fontSize: '14px', color: moat.color, fontWeight: 600, marginBottom: '12px' }}>THE LOCK-IN EFFECT</div>
+                <div style={{ fontSize: '14px', color: moat.color, fontWeight: 600, marginBottom: '12px' }}>{T.animaLockIn}</div>
                 <p style={{ color: COLORS.text, lineHeight: 1.7, fontSize: '16px' }}>{moat.value}</p>
               </div>
             </div>
@@ -1108,7 +1235,7 @@ function AnimaMoatSection() {
 // ANIMA INTELLIGENCE SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaIntelligenceSection() {
+function AnimaIntelligenceSection({ T }) {
   const report = ANIMA_KNOWLEDGE.weeklyReport;
 
   return (
@@ -1125,7 +1252,7 @@ function AnimaIntelligenceSection() {
             letterSpacing: '3px',
             marginBottom: '16px',
             fontWeight: 600
-          }}>WEEKLY INTELLIGENCE REPORT</div>
+          }}>{T.animaIntelLabel}</div>
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 800,
@@ -1133,10 +1260,10 @@ function AnimaIntelligenceSection() {
             letterSpacing: '-1px',
             marginBottom: '16px'
           }}>
-            This Is What You've Been <span className="anima-gradient-text">Missing</span>
+            {T.animaIntelHeadline} <span className="anima-gradient-text">{T.animaIntelHighlight}</span>
           </h2>
           <p style={{ color: COLORS.textMuted, fontSize: '18px' }}>
-            Every Monday. Delivered to your WhatsApp. Insights that change how you run your business.
+            {T.animaIntelSubtitle}
           </p>
         </div>
 
@@ -1166,7 +1293,7 @@ function AnimaIntelligenceSection() {
               fontSize: '24px'
             }}>📊</div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '18px' }}>ANIMA — Resumen Semanal</div>
+              <div style={{ fontWeight: 700, fontSize: '18px' }}>{T.animaReportTitle}</div>
               <div style={{ color: COLORS.textMuted, fontSize: '14px' }}>Tu Restaurante | Semana del 27 Ene al 2 Feb</div>
             </div>
           </div>
@@ -1176,7 +1303,7 @@ function AnimaIntelligenceSection() {
             background: `linear-gradient(135deg, ${COLORS.goldDim}, transparent)`,
             borderBottom: `1px solid ${COLORS.border}`
           }}>
-            <div style={{ fontSize: '12px', color: COLORS.gold, marginBottom: '12px', fontWeight: 600 }}>🔥 LO MÁS IMPORTANTE ESTA SEMANA</div>
+            <div style={{ fontSize: '12px', color: COLORS.gold, marginBottom: '12px', fontWeight: 600 }}>{T.animaImportant}</div>
             <p style={{ fontSize: '20px', fontWeight: 600, lineHeight: 1.5 }}>{report.headline}</p>
           </div>
 
@@ -1207,7 +1334,7 @@ function AnimaIntelligenceSection() {
           </div>
 
           <div style={{ padding: '32px' }}>
-            <div style={{ fontSize: '12px', color: COLORS.cyan, marginBottom: '16px', fontWeight: 600 }}>💡 INSIGHTS CLAVE</div>
+            <div style={{ fontSize: '12px', color: COLORS.cyan, marginBottom: '16px', fontWeight: 600 }}>{T.animaInsightsLabel}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {report.insights.map((insight, i) => (
                 <div key={i} style={{
@@ -1232,7 +1359,7 @@ function AnimaIntelligenceSection() {
             background: COLORS.bgElevated,
             borderTop: `1px solid ${COLORS.border}`
           }}>
-            <div style={{ fontSize: '12px', color: COLORS.pulse, marginBottom: '8px', fontWeight: 600 }}>🎯 ACCIÓN DE LA SEMANA</div>
+            <div style={{ fontSize: '12px', color: COLORS.pulse, marginBottom: '8px', fontWeight: 600 }}>{T.animaActionLabel}</div>
             <p style={{ fontSize: '16px', fontWeight: 500 }}>{report.action}</p>
           </div>
         </div>
@@ -1257,7 +1384,7 @@ function AnimaIntelligenceSection() {
               textDecoration: 'none'
             }}
           >
-            Start Getting Intelligence →
+            {T.animaStartIntel}
           </a>
         </div>
       </div>
@@ -1269,7 +1396,7 @@ function AnimaIntelligenceSection() {
 // ANIMA ROI CALCULATOR SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaROISection() {
+function AnimaROISection({ T }) {
   const [inquiriesPerWeek, setInquiriesPerWeek] = useState(50);
   const [avgTicket, setAvgTicket] = useState(150000);
   const [noShowRate, setNoShowRate] = useState(15);
@@ -1298,14 +1425,14 @@ function AnimaROISection() {
             letterSpacing: '3px',
             marginBottom: '16px',
             fontWeight: 600
-          }}>ROI CALCULATOR</div>
+          }}>{T.animaRoiLabel}</div>
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 48px)',
             fontWeight: 800,
             lineHeight: 1.2,
             letterSpacing: '-1px'
           }}>
-            Calculate Your <span className="anima-gradient-text">Revenue Recovery</span>
+            {T.animaRoiHeadline} <span className="anima-gradient-text">{T.animaRoiHighlight}</span>
           </h2>
         </div>
 
@@ -1319,7 +1446,7 @@ function AnimaROISection() {
             <div style={{ display: 'grid', gap: '24px' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Consultas por semana</label>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>{T.animaInquiries}</label>
                   <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.cyan }}>{inquiriesPerWeek}</span>
                 </div>
                 <input
@@ -1341,7 +1468,7 @@ function AnimaROISection() {
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Ticket promedio</label>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>{T.animaTicket}</label>
                   <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.cyan }}>{formatCOP(avgTicket)}</span>
                 </div>
                 <input
@@ -1364,7 +1491,7 @@ function AnimaROISection() {
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>Tasa de no-shows actual</label>
+                  <label style={{ fontSize: '14px', color: COLORS.textMuted }}>{T.animaNoShowRate}</label>
                   <span style={{ fontSize: '14px', fontWeight: 600, color: COLORS.danger }}>{noShowRate}%</span>
                 </div>
                 <input
@@ -1394,7 +1521,7 @@ function AnimaROISection() {
                 borderRadius: '16px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>Reservas recuperadas/mes</div>
+                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>{T.animaRecovered}</div>
                 <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.cyan }}>{recoveredBookings * 4}</div>
               </div>
               <div style={{
@@ -1403,7 +1530,7 @@ function AnimaROISection() {
                 borderRadius: '16px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>No-shows evitados/mes</div>
+                <div style={{ fontSize: '12px', color: COLORS.textMuted, marginBottom: '8px' }}>{T.animaAvoided}</div>
                 <div style={{ fontSize: '32px', fontWeight: 800, color: COLORS.pulse }}>{reducedNoShows}</div>
               </div>
             </div>
@@ -1414,12 +1541,12 @@ function AnimaROISection() {
               borderRadius: '16px',
               textAlign: 'center'
             }}>
-              <div style={{ fontSize: '14px', color: COLORS.textMuted, marginBottom: '8px' }}>VALOR MENSUAL RECUPERADO</div>
+              <div style={{ fontSize: '14px', color: COLORS.textMuted, marginBottom: '8px' }}>{T.animaMonthlyValue}</div>
               <div style={{ fontSize: '48px', fontWeight: 800, marginBottom: '8px' }}>
                 <span className="anima-gradient-text">{formatCOP(totalMonthlyValue)}</span>
               </div>
               <div style={{ fontSize: '24px', color: COLORS.pulse, fontWeight: 700 }}>
-                ROI: {roi}%
+                {T.animaRoiResult} {roi}%
               </div>
             </div>
           </div>
@@ -1433,7 +1560,7 @@ function AnimaROISection() {
 // ANIMA CTA SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaCTASection() {
+function AnimaCTASection({ T }) {
   return (
     <section style={{
       padding: '120px 24px',
@@ -1449,7 +1576,7 @@ function AnimaCTASection() {
           letterSpacing: '-1px',
           marginBottom: '24px'
         }}>
-          Your Business Deserves a <span className="anima-gradient-text">Nervous System</span>
+          {T.animaCtaHeadline} <span className="anima-gradient-text">{T.animaCtaHighlight}</span>
         </h2>
         <p style={{
           fontSize: '20px',
@@ -1457,9 +1584,9 @@ function AnimaCTASection() {
           marginBottom: '48px',
           lineHeight: 1.6
         }}>
-          Stop responding. Start understanding.
+          {T.animaCtaSubtitle1}
           <br />
-          The free diagnostic alone will show you things about your business you never knew.
+          {T.animaCtaSubtitle2}
         </p>
 
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -1480,7 +1607,7 @@ function AnimaCTASection() {
               animation: 'animaGlow 3s ease-in-out infinite'
             }}
           >
-            Book Your Free Diagnostic →
+            {T.animaCtaBook}
           </a>
           <a
             href={WHATSAPP}
@@ -1497,7 +1624,7 @@ function AnimaCTASection() {
               textDecoration: 'none'
             }}
           >
-            💬 Message Us on WhatsApp
+            {T.animaCtaWhatsApp}
           </a>
         </div>
 
@@ -1509,7 +1636,7 @@ function AnimaCTASection() {
           border: `1px solid ${COLORS.border}`
         }}>
           <div style={{ fontSize: '14px', color: COLORS.textMuted }}>
-            No commitment required. No credit card. Just 45 minutes that will change how you see your business.
+            {T.animaCtaNote}
           </div>
         </div>
       </div>
@@ -1521,7 +1648,7 @@ function AnimaCTASection() {
 // ANIMA FOOTER
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaFooter() {
+function AnimaFooter({ T }) {
   return (
     <footer style={{
       padding: '48px 24px',
@@ -1538,20 +1665,20 @@ function AnimaFooter() {
         gap: '24px'
       }}>
         <div>
-          <div style={{ fontWeight: 700, marginBottom: '8px' }}>MACHINEMIND</div>
+          <div style={{ fontWeight: 700, marginBottom: '8px' }}>{T.brand}</div>
           <div style={{ fontSize: '12px', color: COLORS.textMuted }}>
-            v5.0 ANIMA EDITION | Built in Cartagena 🇨🇴
+            {T.animaFooterVersion}
           </div>
         </div>
 
         <div style={{ display: 'flex', gap: '24px' }}>
           <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Instagram</a>
           <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>WhatsApp</a>
-          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>Book a Call</a>
+          <a href={CAL_LINK} target="_blank" rel="noopener noreferrer" style={{ color: COLORS.textMuted, textDecoration: 'none' }}>{T.animaFooterBook}</a>
         </div>
 
         <div style={{ fontSize: '12px', color: COLORS.textDim }}>
-          © 2026 MachineMind. ANIMA Intelligent Systems.
+          {T.animaFooterCopyright}
         </div>
       </div>
     </footer>
@@ -1562,23 +1689,23 @@ function AnimaFooter() {
 // ANIMA FULL EXPERIENCE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function AnimaExperience({ onBack }) {
+function AnimaExperience({ onBack, T, lang, setLang }) {
   return (
     <div className="anima-page">
       <AnimaGlobalStyles />
       <AnimaNeuralBackground />
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <AnimaNavigation onBack={onBack} />
+        <AnimaNavigation onBack={onBack} T={T} lang={lang} setLang={setLang} />
         <main>
-          <AnimaHeroSection />
-          <AnimaProblemSection />
-          <AnimaTiersSection />
-          <AnimaMoatSection />
-          <AnimaIntelligenceSection />
-          <AnimaROISection />
-          <AnimaCTASection />
+          <AnimaHeroSection T={T} />
+          <AnimaProblemSection T={T} />
+          <AnimaTiersSection T={T} />
+          <AnimaMoatSection T={T} />
+          <AnimaIntelligenceSection T={T} />
+          <AnimaROISection T={T} />
+          <AnimaCTASection T={T} />
         </main>
-        <AnimaFooter />
+        <AnimaFooter T={T} />
       </div>
     </div>
   );
@@ -1858,7 +1985,7 @@ export default function Home() {
 
   // If ANIMA is selected, show the full ANIMA experience
   if (showAnima) {
-    return React.createElement(AnimaExperience, { onBack: handleAnimaBack });
+    return React.createElement(AnimaExperience, { onBack: handleAnimaBack, T: T, lang: lang, setLang: setLang });
   }
 
   return (
