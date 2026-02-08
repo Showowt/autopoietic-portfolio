@@ -1,7 +1,9 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// MACHINEMIND v4.1 PREMIUM LAYOUT
+// MACHINEMIND v6.0 PREMIUM LAYOUT
 // 5-Star Mobile & Desktop Experience
 // ═══════════════════════════════════════════════════════════════════════════════
+
+import './globals.css';
 
 export const metadata = {
   title: "MachineMind | AI Infrastructure for Businesses That Never Sleep",
