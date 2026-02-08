@@ -37,6 +37,68 @@ var INSTAGRAM = "https://www.instagram.com/machinemindconsulting";
 var WHATSAPP = "https://wa.me/19544451638";
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// BILINGUAL TEXT
+// ═══════════════════════════════════════════════════════════════════════════════
+
+var TEXT_EN = {
+  brand: "MACHINEMIND",
+  initializing: "INITIALIZING SYSTEMS",
+  introHeadline: "THE INFRASTRUCTURE BEHIND",
+  introSubheadline: "BUSINESSES THAT NEVER SLEEP",
+  loading: "LOADING EXPERIENCE...",
+  skipIntro: "SKIP INTRO →",
+  selectVertical: "SELECT YOUR VERTICAL",
+  selectSubtitle: "We'll generate a custom AI infrastructure blueprint",
+  hospitality: "Hospitality & Hotels",
+  restaurant: "Restaurants & Clubs",
+  tours: "Tours & Experiences",
+  services: "Professional Services",
+  animaLabel: "ANIMA Intelligence",
+  premiumTier: "PREMIUM TIER",
+  generatingFor: "GENERATING BLUEPRINT FOR",
+  systemInit: "SYSTEM INITIALIZATION",
+  blueprintGenerated: "✦ BLUEPRINT GENERATED ✦",
+  aiInfrastructure: "AI Infrastructure",
+  infrastructureReady: "Your Infrastructure is Ready",
+  finalSubtitle: "This runs 24/7 while you sleep. Zero missed inquiries. Zero lost revenue.",
+  scheduleYourBuild: "Schedule Your Build →",
+  exploreAnother: "← Explore Another",
+  noCommitment: "15-min call • No commitment • See what we'll build",
+  back: "← Back",
+  online: "ONLINE",
+  ready: "READY"
+};
+
+var TEXT_ES = {
+  brand: "MACHINEMIND",
+  initializing: "INICIALIZANDO SISTEMAS",
+  introHeadline: "LA INFRAESTRUCTURA DETRÁS DE",
+  introSubheadline: "NEGOCIOS QUE NUNCA DUERMEN",
+  loading: "CARGANDO EXPERIENCIA...",
+  skipIntro: "SALTAR INTRO →",
+  selectVertical: "SELECCIONA TU VERTICAL",
+  selectSubtitle: "Generaremos un blueprint de infraestructura IA personalizado",
+  hospitality: "Hoteles y Hospitalidad",
+  restaurant: "Restaurantes y Clubes",
+  tours: "Tours y Experiencias",
+  services: "Servicios Profesionales",
+  animaLabel: "Inteligencia ANIMA",
+  premiumTier: "NIVEL PREMIUM",
+  generatingFor: "GENERANDO BLUEPRINT PARA",
+  systemInit: "INICIALIZACIÓN DEL SISTEMA",
+  blueprintGenerated: "✦ BLUEPRINT GENERADO ✦",
+  aiInfrastructure: "Infraestructura IA",
+  infrastructureReady: "Tu Infraestructura Está Lista",
+  finalSubtitle: "Funciona 24/7 mientras duermes. Cero consultas perdidas. Cero ingresos perdidos.",
+  scheduleYourBuild: "Agenda Tu Construcción →",
+  exploreAnother: "← Explorar Otro",
+  noCommitment: "Llamada de 15 min • Sin compromiso • Ve lo que construiremos",
+  back: "← Volver",
+  online: "EN LÍNEA",
+  ready: "LISTO"
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ANIMA KNOWLEDGE BASE
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1715,6 +1777,25 @@ function InstagramIcon() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// LANGUAGE TOGGLE
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function LanguageToggle(props) {
+  return React.createElement("div", {
+    style: { display: "flex", gap: "4px", background: COLORS.bgCard, borderRadius: "20px", padding: "4px", border: "1px solid " + COLORS.border }
+  },
+    React.createElement("button", {
+      onClick: function() { props.setLang("en"); },
+      style: { padding: "6px 12px", borderRadius: "16px", border: "none", background: props.lang === "en" ? COLORS.cyan : "transparent", color: props.lang === "en" ? COLORS.bg : COLORS.textMuted, fontSize: "12px", fontWeight: 600, cursor: "pointer" }
+    }, "EN"),
+    React.createElement("button", {
+      onClick: function() { props.setLang("es"); },
+      style: { padding: "6px 12px", borderRadius: "16px", border: "none", background: props.lang === "es" ? COLORS.cyan : "transparent", color: props.lang === "es" ? COLORS.bg : COLORS.textMuted, fontSize: "12px", fontWeight: 600, cursor: "pointer" }
+    }, "ES")
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1726,14 +1807,18 @@ export default function Home() {
   var [progress, setProgress] = useState(0);
   var [caps, setCaps] = useState([]);
   var [chatOpen, setChatOpen] = useState(false);
+  var [lang, setLang] = useState("en");
+
+  // Get text for current language
+  var T = lang === "es" ? TEXT_ES : TEXT_EN;
 
   // Updated interests with ANIMA as the 5th option
   var interests = [
-    { id: "hospitality", label: "Hospitality & Hotels", icon: "🏨" },
-    { id: "restaurant", label: "Restaurants & Clubs", icon: "🍽️" },
-    { id: "tours", label: "Tours & Experiences", icon: "⛵" },
-    { id: "services", label: "Professional Services", icon: "💼" },
-    { id: "anima", label: "ANIMA Intelligence", icon: "🧠", special: true }
+    { id: "hospitality", label: T.hospitality, icon: "🏨" },
+    { id: "restaurant", label: T.restaurant, icon: "🍽️" },
+    { id: "tours", label: T.tours, icon: "⛵" },
+    { id: "services", label: T.services, icon: "💼" },
+    { id: "anima", label: T.animaLabel, icon: "🧠", special: true }
   ];
 
   var capData = { hospitality: [{ title: "REVENUE RECOVERY", items: ["24/7 Booking Response", "Abandoned Inquiry Recovery", "Upsell Automation", "Multi-language Support"] }, { title: "OPERATIONS", items: ["Reservation Management", "Guest Communication", "Review Generation", "Staff Coordination"] }, { title: "INTELLIGENCE", items: ["Demand Forecasting", "Competitor Monitoring", "Sentiment Analysis", "Revenue Optimization"] }], restaurant: [{ title: "BOOKING", items: ["WhatsApp Reservations", "Wait List Management", "VIP Recognition", "Event Coordination"] }, { title: "EXPERIENCE", items: ["Menu Inquiries", "Dietary Accommodations", "Special Requests", "Loyalty Programs"] }, { title: "OPERATIONS", items: ["Table Optimization", "Staff Alerts", "Inventory Triggers", "Review Response"] }], tours: [{ title: "LEAD CAPTURE", items: ["Instant Availability", "Custom Itineraries", "Group Coordination", "Payment Links"] }, { title: "EXPERIENCE", items: ["Pre-trip Communication", "Weather Updates", "Safety Protocols", "Photo Sharing"] }, { title: "GROWTH", items: ["Review Collection", "Referral Programs", "Seasonal Campaigns", "Partner Integration"] }], services: [{ title: "ACQUISITION", items: ["Lead Qualification", "Appointment Scheduling", "Proposal Delivery", "Follow-up Sequences"] }, { title: "DELIVERY", items: ["Project Updates", "Document Sharing", "Billing Reminders", "Satisfaction Surveys"] }, { title: "RETENTION", items: ["Anniversary Outreach", "Cross-sell Triggers", "Testimonial Requests", "Referral Incentives"] }] };
@@ -1779,7 +1864,7 @@ export default function Home() {
   return (
     React.createElement("div", { style: { minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "ui-monospace, monospace" } },
       React.createElement(ParticleField, { intensity: phase >= 2 ? 1.5 : 0.8 }),
-      phase > 1 && phase < 4 && React.createElement("button", { onClick: handleBack, style: { position: "fixed", top: "24px", left: "24px", padding: "12px 20px", borderRadius: "8px", border: "1px solid " + COLORS.border, background: COLORS.bgCard, color: COLORS.text, cursor: "pointer", zIndex: 100, fontFamily: "system-ui", fontSize: "14px" } }, "← Back"),
+      phase > 1 && phase < 4 && React.createElement("button", { onClick: handleBack, style: { position: "fixed", top: "24px", left: "24px", padding: "12px 20px", borderRadius: "8px", border: "1px solid " + COLORS.border, background: COLORS.bgCard, color: COLORS.text, cursor: "pointer", zIndex: 100, fontFamily: "system-ui", fontSize: "14px" } }, T.back),
       React.createElement("div", { style: { position: "relative", zIndex: 1, maxWidth: "1100px", margin: "0 auto", padding: "40px 24px", minHeight: "100vh", display: "flex", flexDirection: "column" } },
         React.createElement("header", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "60px", flexWrap: "wrap", gap: "16px" } },
           React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "12px" } },
@@ -1790,10 +1875,11 @@ export default function Home() {
             )
           ),
           React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "16px" } },
+            React.createElement(LanguageToggle, { lang: lang, setLang: setLang }),
             React.createElement("a", { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer", style: { color: COLORS.textMuted } }, React.createElement(InstagramIcon)),
             React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: COLORS.textMuted } },
               React.createElement("div", { style: { width: "8px", height: "8px", borderRadius: "50%", background: COLORS.cyan, animation: "pulse 2s infinite" } }),
-              phase === 4 ? "READY" : "ONLINE"
+              phase === 4 ? T.ready : T.online
             )
           )
         ),
@@ -1816,22 +1902,22 @@ export default function Home() {
             ),
             // Logo text
             React.createElement("div", { style: { marginBottom: "24px", opacity: 0, animation: "fadeIn 0.8s 0.5s forwards" } },
-              React.createElement("div", { style: { fontSize: "12px", letterSpacing: "0.3em", color: COLORS.gold, marginBottom: "8px" } }, "MACHINEMIND"),
-              React.createElement("div", { style: { fontSize: "10px", letterSpacing: "0.2em", color: COLORS.textMuted } }, "INITIALIZING SYSTEMS")
+              React.createElement("div", { style: { fontSize: "12px", letterSpacing: "0.3em", color: COLORS.gold, marginBottom: "8px" } }, T.brand),
+              React.createElement("div", { style: { fontSize: "10px", letterSpacing: "0.2em", color: COLORS.textMuted } }, T.initializing)
             ),
             // Main headline
             React.createElement("h1", { style: { fontFamily: "system-ui", fontSize: "clamp(32px, 6vw, 52px)", fontWeight: 800, marginBottom: "16px", letterSpacing: "-1px" } },
-              React.createElement(Typewriter, { text: "THE INFRASTRUCTURE BEHIND", speed: 45, delay: 1000 })
+              React.createElement(Typewriter, { text: T.introHeadline, speed: 45, delay: 1000 })
             ),
             React.createElement("p", { style: { fontSize: "clamp(18px, 3vw, 24px)", color: COLORS.textMuted, marginBottom: "48px" } },
-              React.createElement(Typewriter, { text: "BUSINESSES THAT NEVER SLEEP", speed: 50, delay: 2500 })
+              React.createElement(Typewriter, { text: T.introSubheadline, speed: 50, delay: 2500 })
             ),
             // Loading indicator
             React.createElement("div", { style: { opacity: 0, animation: "fadeIn 0.5s 3.5s forwards" } },
               React.createElement("div", { style: { width: "200px", height: "3px", background: "rgba(255,255,255,0.1)", borderRadius: "2px", margin: "0 auto", overflow: "hidden" } },
                 React.createElement("div", { style: { width: "100%", height: "100%", background: "linear-gradient(90deg, " + COLORS.cyan + ", " + COLORS.gold + ")", animation: "loadingBar 2s ease-in-out" } })
               ),
-              React.createElement("div", { style: { fontSize: "11px", color: COLORS.textMuted, marginTop: "12px", letterSpacing: "0.1em" } }, "LOADING EXPERIENCE...")
+              React.createElement("div", { style: { fontSize: "11px", color: COLORS.textMuted, marginTop: "12px", letterSpacing: "0.1em" } }, T.loading)
             ),
             // Skip button
             React.createElement("button", {
@@ -1852,15 +1938,15 @@ export default function Home() {
                 animation: "fadeIn 0.5s 5s forwards",
                 letterSpacing: "0.1em"
               }
-            }, "SKIP INTRO →")
+            }, T.skipIntro)
           )
         ),
         phase === 1 && React.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" } },
           React.createElement("h2", { style: { fontSize: "14px", letterSpacing: "0.2em", color: COLORS.cyan, marginBottom: "16px" } },
-            React.createElement(Typewriter, { text: "SELECT YOUR VERTICAL", speed: 40 })
+            React.createElement(Typewriter, { text: T.selectVertical, speed: 40 })
           ),
           React.createElement("p", { style: { fontSize: "14px", color: COLORS.textMuted, marginBottom: "40px" } },
-            React.createElement(Typewriter, { text: "We'll generate a custom AI infrastructure blueprint", speed: 30, delay: 1000 })
+            React.createElement(Typewriter, { text: T.selectSubtitle, speed: 30, delay: 1000 })
           ),
           React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "20px", width: "100%", maxWidth: "900px" } },
             interests.map(function(interest, i) {
@@ -1883,7 +1969,7 @@ export default function Home() {
               },
                 React.createElement("div", { style: { fontSize: "44px", marginBottom: "16px" } }, interest.icon),
                 React.createElement("div", { style: { fontFamily: "system-ui", fontSize: "15px", fontWeight: 600, color: isAnima ? COLORS.gold : COLORS.text } }, interest.label),
-                isAnima && React.createElement("div", { style: { fontSize: "10px", color: COLORS.cyan, marginTop: "8px", letterSpacing: "1px" } }, "PREMIUM TIER")
+                isAnima && React.createElement("div", { style: { fontSize: "10px", color: COLORS.cyan, marginTop: "8px", letterSpacing: "1px" } }, T.premiumTier)
               );
             })
           ),
@@ -1894,11 +1980,11 @@ export default function Home() {
             React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "16px", marginBottom: "32px" } },
               React.createElement("span", { style: { fontSize: "44px" } }, selected && selected.icon),
               React.createElement("div", null,
-                React.createElement("div", { style: { fontSize: "12px", color: COLORS.cyan } }, "GENERATING BLUEPRINT FOR"),
+                React.createElement("div", { style: { fontSize: "12px", color: COLORS.cyan } }, T.generatingFor),
                 React.createElement("div", { style: { fontFamily: "system-ui", fontSize: "22px", fontWeight: 600 } }, selected && selected.label)
               )
             ),
-            React.createElement(GlowingProgress, { progress: progress, label: "SYSTEM INITIALIZATION" }),
+            React.createElement(GlowingProgress, { progress: progress, label: T.systemInit }),
             React.createElement("div", { style: { background: "rgba(0,0,0,0.4)", borderRadius: "8px", padding: "16px", fontSize: "12px", maxHeight: "200px", overflow: "auto", fontFamily: "monospace" } },
               logs.map(function(log, i) {
                 return React.createElement("div", { key: i, style: { color: i === logs.length - 1 ? COLORS.cyan : COLORS.textMuted, marginBottom: "8px" } },
@@ -1912,9 +1998,9 @@ export default function Home() {
         ),
         phase === 3 && React.createElement("div", { style: { flex: 1 } },
           React.createElement("div", { style: { textAlign: "center", marginBottom: "40px" } },
-            React.createElement("div", { style: { fontSize: "12px", color: COLORS.gold, marginBottom: "8px" } }, "✦ BLUEPRINT GENERATED ✦"),
+            React.createElement("div", { style: { fontSize: "12px", color: COLORS.gold, marginBottom: "8px" } }, T.blueprintGenerated),
             React.createElement("h2", { style: { fontFamily: "system-ui", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 700 } },
-              React.createElement(Typewriter, { text: (selected ? selected.label : "") + " AI Infrastructure", speed: 40 })
+              React.createElement(Typewriter, { text: (selected ? selected.label : "") + " " + T.aiInfrastructure, speed: 40 })
             )
           ),
           React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" } },
@@ -1927,16 +2013,16 @@ export default function Home() {
             React.createElement("span", { style: { fontSize: "44px" } }, "✓")
           ),
           React.createElement("h2", { style: { fontFamily: "system-ui", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 700, marginBottom: "16px" } },
-            React.createElement(Typewriter, { text: "Your Infrastructure is Ready", speed: 45 })
+            React.createElement(Typewriter, { text: T.infrastructureReady, speed: 45 })
           ),
           React.createElement("p", { style: { fontSize: "16px", color: COLORS.textMuted, maxWidth: "480px", marginBottom: "40px", lineHeight: 1.6 } },
-            React.createElement(Typewriter, { text: "This runs 24/7 while you sleep. Zero missed inquiries. Zero lost revenue.", speed: 30, delay: 2000 })
+            React.createElement(Typewriter, { text: T.finalSubtitle, speed: 30, delay: 2000 })
           ),
           React.createElement("div", { style: { display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center" } },
-            React.createElement("button", { onClick: function() { window.open(CAL_LINK, "_blank"); }, style: { background: "linear-gradient(135deg, " + COLORS.cyan + ", " + COLORS.gold + ")", border: "none", borderRadius: "8px", padding: "18px 40px", fontSize: "14px", fontWeight: 600, color: COLORS.bg, cursor: "pointer", fontFamily: "system-ui", opacity: 0, animation: "fadeIn 0.6s 3s forwards" } }, "Schedule Your Build →"),
-            React.createElement("button", { onClick: function() { setPhase(1); setSelected(null); setCaps([]); }, style: { background: "transparent", border: "1px solid " + COLORS.border, borderRadius: "8px", padding: "18px 32px", fontSize: "14px", color: COLORS.text, cursor: "pointer", fontFamily: "system-ui", opacity: 0, animation: "fadeIn 0.6s 3.2s forwards" } }, "← Explore Another")
+            React.createElement("button", { onClick: function() { window.open(CAL_LINK, "_blank"); }, style: { background: "linear-gradient(135deg, " + COLORS.cyan + ", " + COLORS.gold + ")", border: "none", borderRadius: "8px", padding: "18px 40px", fontSize: "14px", fontWeight: 600, color: COLORS.bg, cursor: "pointer", fontFamily: "system-ui", opacity: 0, animation: "fadeIn 0.6s 3s forwards" } }, T.scheduleYourBuild),
+            React.createElement("button", { onClick: function() { setPhase(1); setSelected(null); setCaps([]); }, style: { background: "transparent", border: "1px solid " + COLORS.border, borderRadius: "8px", padding: "18px 32px", fontSize: "14px", color: COLORS.text, cursor: "pointer", fontFamily: "system-ui", opacity: 0, animation: "fadeIn 0.6s 3.2s forwards" } }, T.exploreAnother)
           ),
-          React.createElement("p", { style: { marginTop: "20px", fontSize: "12px", color: COLORS.textMuted, opacity: 0, animation: "fadeIn 0.5s 4s forwards" } }, "15-min call • No commitment • See what we'll build"),
+          React.createElement("p", { style: { marginTop: "20px", fontSize: "12px", color: COLORS.textMuted, opacity: 0, animation: "fadeIn 0.5s 4s forwards" } }, T.noCommitment),
           React.createElement("a", { href: INSTAGRAM, target: "_blank", rel: "noopener noreferrer", style: { marginTop: "32px", color: COLORS.textMuted, fontSize: "14px", textDecoration: "none", opacity: 0, animation: "fadeIn 0.5s 4.5s forwards" } }, "@machinemindconsulting")
         )
       ),
